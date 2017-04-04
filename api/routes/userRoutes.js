@@ -1,5 +1,4 @@
 import User from '../models/userModel.js';
-
 /* eslint-disable no-console */
 
 const userRoutes = (app) => {

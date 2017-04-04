@@ -21,8 +21,11 @@
     "body-parser": "^1.17.1",
     "colors": "^1.1.2",
     "express": "^4.15.2",
+    "jwt-simple": "^0.5.1",
     "mongoose": "^4.8.6",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1"
   },
   "repository": {
     "type": "git",

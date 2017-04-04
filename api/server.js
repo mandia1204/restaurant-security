@@ -4,7 +4,7 @@ import open from 'open';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import bluebird from 'bluebird';
-/* eslint-disable no-console */
+import Auth from './auth/auth.js'
 const options = { promiseLibrary: bluebird };
 mongoose.connect('mongodb://localhost/users', options);
 
@@ -15,14 +15,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(Auth().initialize());
 
 import userRoutes from './routes/userRoutes.js';
+import tokenRoutes from './routes/tokenRoutes.js'
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 userRoutes(app);
+tokenRoutes(app);
 
 app.listen(port, (err) => {
   if (err) {
