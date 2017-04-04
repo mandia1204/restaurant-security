@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Restaurant security api",
   "scripts": {
-    "prestart": "babel-node api/startMessage.js",
-    "start": "nodemon api/server.js --exec babel-node",
+    "prestart": "babel-node startMessage.js",
+    "start": "nodemon server.js --exec babel-node",
     "build": "babel api -d dist --copy-files",
     "serve": "node dist/server.js"
   },
