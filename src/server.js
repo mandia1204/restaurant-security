@@ -5,8 +5,10 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import bluebird from 'bluebird';
 import Auth from './auth/auth.js'
+import getConnectionString from './connectionString.js';
+
 const options = { promiseLibrary: bluebird };
-mongoose.connect('mongodb://localhost/users', options);
+mongoose.connect(getConnectionString(), options);
 
 const port = 3001;
 const app = express();
