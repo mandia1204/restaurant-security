@@ -1,6 +1,6 @@
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
-import User from '../models/userModel.js';
+import userService from '../services/userService.js';
 import cfg from './config.js';
 const ExtractJwt = passportJWT.ExtractJwt;
 const Strategy = passportJWT.Strategy;
@@ -10,16 +10,16 @@ const params = {
 };
 
 const Auth = () => {
+    const service = userService();
     const strategy = new Strategy(params, (payload, done) => {
-        const user = User.find({ userName: payload.userName});
         console.log('using strategy');
-        if (user) {
-            return done(null, {
-                userName: user.userName
-            });
-        } else {
+        service.findUser({ userName: payload.userName}).then((user) => {
+          if(user){
+            return done(null, { userName: user.userName });
+          }else{
             return done(new Error("User not found"), null);
-        }
+          }
+        });
     });
     passport.use(strategy);
     return {
