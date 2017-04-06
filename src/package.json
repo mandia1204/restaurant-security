@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Restaurant security api",
   "scripts": {
+    "babel-version": "babel --version",
     "prestart": "babel-node startMessage.js",
     "start": "nodemon server.js --exec babel-node",
-    "build": "babel api -d dist --copy-files",
+    "build": "babel . -d dist --copy-files --ignore node_modules,dist,package.json",
     "serve": "node dist/server.js"
   },
   "author": "Marvin Andia",

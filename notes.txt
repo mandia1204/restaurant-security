@@ -1,0 +1,2 @@
+- To reload service after change add -F to NODEMON
+- The service could fail if the DB is not ready yet
