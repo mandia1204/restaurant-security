@@ -8,7 +8,7 @@ const tokenRoutes = (app) => {
       if (req.body.userName && req.body.password) {
         const query = {'userName': req.body.userName, 'password': req.body.password};
         service.generateToken(query).then((token) => {
-          if(token){
+          if(token) {
             res.json({ token: token });
           } else {
             res.sendStatus(401);
@@ -19,7 +19,7 @@ const tokenRoutes = (app) => {
     }
   });
   /* VALIDATE TOKEN */
-  app.get("/token", Auth().authenticate(), function(req, res) {
+  app.get("/token", Auth().authenticate('validateWithDb'), (req, res) => {
     res.sendStatus(200);
   });
 };
