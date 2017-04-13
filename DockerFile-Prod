@@ -11,8 +11,8 @@ COPY ./src/ /var/www
 
 RUN npm run build
 
-RUN rm -r routes services models auth
-RUN rm connectionString.js server.js startMessage.js testSetup.js index.html
+RUN rm -r routes services models auth db
+RUN rm server.js startMessage.js testSetup.js index.html
 
 EXPOSE 3001
 CMD [ "npm", "run", "serve" ]

@@ -3,12 +3,14 @@ import path from 'path';
 import open from 'open';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import bluebird from 'bluebird';
+import getConnectionString from './db/connectionString.js';
+import mongooseOptions from './db/mongooseOptions.js';
+import connectionEvents from './db/connectionEvents.js';
 import Auth from './auth/auth.js'
-import getConnectionString from './connectionString.js';
 
-const options = { promiseLibrary: bluebird };
-mongoose.connect(getConnectionString(), options);
+const connString = getConnectionString();
+connectionEvents(mongoose);
+mongoose.connect(connString, mongooseOptions);
 
 const port = 3001;
 const app = express();
