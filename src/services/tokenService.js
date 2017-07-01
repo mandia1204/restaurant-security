@@ -9,7 +9,9 @@ const tokenService = () => {
     return findPromise.then((user) => {
       if (user) {
           const payload = {
-              userName: user.userName
+              userName: user.userName,
+              iss: cfg.issuer,
+              aud: cfg.audience
           };
           return jwt.encode(payload, cfg.jwtSecret);
       } else {

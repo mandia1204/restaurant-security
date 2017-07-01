@@ -6,7 +6,10 @@ const ExtractJwt = passportJWT.ExtractJwt;
 const Strategy = passportJWT.Strategy;
 const params = {
     secretOrKey: cfg.jwtSecret,
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer')
+    issuer: cfg.issuer,
+    audience: cfg.audience,
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+    ignoreExpiration: false
 };
 
 const Auth = () => {
