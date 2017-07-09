@@ -1,6 +1,7 @@
 import jwt from 'jwt-simple';
 import userService from './userService.js';
 import cfg from '../auth/config.js';
+import moment from 'moment';
 
 const tokenService = () => {
   const service = userService();
@@ -11,7 +12,8 @@ const tokenService = () => {
           const payload = {
               userName: user.userName,
               iss: cfg.issuer,
-              aud: cfg.audience
+              aud: cfg.audience,
+              exp: moment().add(1, 'hours').unix()
           };
           return jwt.encode(payload, cfg.jwtSecret);
       } else {
