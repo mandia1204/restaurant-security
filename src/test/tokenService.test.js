@@ -3,7 +3,7 @@ import test from 'tape';
 import jwt from 'jwt-simple';
 import cfg from '../auth/config.js';
 
-const userServiceStub = { default: () => {
+const _userServiceStub = { default: () => {
   return {
     findUser : (data) => {
       return new Promise((resolve, reject) => {
@@ -17,14 +17,14 @@ const userServiceStub = { default: () => {
   }
 }};
 
-const serviceFactory = {
+const _serviceFactory = {
   getService: (stub) => {
     return proxyquire('../services/tokenService.js', { './userService.js': stub });
   }
 };
 
-test('user found, returs token with all required values.', (t) => {
-  const service = serviceFactory.getService(userServiceStub).default();
+test('user found, returns token with all required values.', (t) => {
+  const service = _serviceFactory.getService(_userServiceStub).default();
   const data = {userName: 'matt'};
 
   const promise = service.generateToken(data).then((token) => {
@@ -37,7 +37,7 @@ test('user found, returs token with all required values.', (t) => {
 });
 
 test('user not found, returns null.', (t) => {
-  const service = serviceFactory.getService(userServiceStub).default();
+  const service = _serviceFactory.getService(_userServiceStub).default();
   const data = {userName: 'matteo'};
 
   const promise = service.generateToken(data).then((token) => {
