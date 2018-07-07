@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Restaurant security api",
   "scripts": {
-    "prestart": "babel-node startMessage.js",
-    "start": "nodemon server.js --exec babel-node",
-    "test": "node_modules/.bin/babel-tape-runner test/*.js",
-    "build": "babel . -d dist --copy-files --ignore node_modules,dist,package.json",
+    "prestart": "babel-node src/startMessage.js",
+    "start": "nodemon src/server.js --exec babel-node",
+    "test": "babel-tape-runner src/test/*.js | faucet",
+    "build": "babel src -d dist --copy-files",
     "serve": "node dist/server.js"
   },
   "author": "Marvin Andia",
@@ -14,6 +14,7 @@
   "devDependencies": {
     "babel-tape-runner": "^2.0.1",
     "colors": "^1.1.2",
+    "faucet": "0.0.1",
     "nodemon": "^1.11.0",
     "proxyquire": "^1.8.0",
     "supertest": "^3.0.0",
