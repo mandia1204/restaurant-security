@@ -1,2 +1,59 @@
 - To reload service after change add -F to NODEMON
 - The service could fail if the DB is not ready yet
+-init db:
+
+
+--installing mongodb as windows service(don't forget add --auth):
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+
+
+1- create user dbAdmin
+
+db.createUser(
+  {
+    user: "marvin",
+    pwd: "1234",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+connect db:
+
+mongo --port 27017 -u "marvin" -p "1234" --authenticationDatabase "admin"
+
+
+2- create restaurant_security db (as admin):
+use restaurant_security
+db.createCollection("users")
+
+db.createUser(
+   {
+     user: "security_user",
+     pwd: "1234",
+     roles: [ "readWrite", "dbAdmin" ]
+   }
+)
+
+3- add initial system user:
+
+db.users.insert({"userName":"matt", "password":"1234"})
+
+4-
+
+if you want to grand access to admin user to another db:
+
+db.grantRolesToUser(
+   "marvin",
+   [{ role: "readWrite", db: "restaurant_security" } ]
+)
+
+
+useful commands:
+
+db: current db
+show dbs
+show collections
+show users
+use [dbname]
+db.[collection].find()
