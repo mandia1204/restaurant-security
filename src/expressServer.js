@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import open from 'open';
 import bodyParser from 'body-parser';
 import Auth from './auth/auth.js'
 
