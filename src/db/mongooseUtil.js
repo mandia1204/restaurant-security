@@ -4,7 +4,7 @@ import mongooseOptions from './mongooseOptions.js';
 import connectionEvents from './connectionEvents.js';
 
 const mongooseUtil = () => {
-  const _connect = () => {
+  const connect = () => {
     if(mongoose.connection.readyState === 0) {
       console.log('Not connected to db, trying to connect...');
       const connString = getConnectionString();
@@ -14,7 +14,7 @@ const mongooseUtil = () => {
   };
 
   return {
-    connect: _connect
+    connect
   }
 };
 

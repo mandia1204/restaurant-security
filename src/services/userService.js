@@ -2,7 +2,7 @@ import User from '../models/userModel.js';
 
 const userSevice = () => {
 
-  const find = (params, sort) => {
+  const findUsers = (params, sort) => {
     let query =  User.find(params);
     if(sort) {
       query = query.sort(sort);
@@ -10,19 +10,19 @@ const userSevice = () => {
     return query.exec();
   };
 
-  const findOne = (params) => {
+  const findUser = (params) => {
     return User.findOne(params).exec();
   };
 
-  const save = (user) => {
+  const saveUser = (user) => {
     const newUser = new User(user);
     return newUser.save();
   };
 
   return {
-    findUsers: find,
-    findUser: findOne,
-    saveUser: save
+    findUsers,
+    findUser,
+    saveUser
   };
 };
 

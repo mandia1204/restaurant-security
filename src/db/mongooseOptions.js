@@ -1,8 +1,8 @@
 import bluebird from 'bluebird';
 
-const mongooseOptions = {
+export default {
   promiseLibrary: bluebird,
-  server: { auto_reconnect:true, reconnectTries: 10 }
+  autoReconnect: true,
+  reconnectTries: 3,
+  useNewUrlParser: true
 };
-
-export default mongooseOptions;

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const tokenService = () => {
   const service = userService();
-  const _generate = (requestData) => {
+  const generateToken = (requestData) => {
     const findPromise = service.findUser(requestData);
     return findPromise.then((user) => {
       if (user) {
@@ -16,14 +16,16 @@ const tokenService = () => {
               exp: moment().add(1, 'hours').unix()
           };
           return jwt.encode(payload, cfg.jwtSecret);
-      } else {
-          return null;
       }
+      return null;
+    }).catch((err) => {
+      console.log(err);
+      return null;
     });
   };
 
   return {
-    generateToken: _generate
+    generateToken
   };
 };
 
