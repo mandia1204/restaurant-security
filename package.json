@@ -16,6 +16,7 @@
     "colors": "^1.1.2",
     "faucet": "0.0.1",
     "nodemon": "^1.11.0",
+    "npm-check-updates": "^2.14.2",
     "proxyquire": "^1.8.0",
     "supertest": "^3.0.0",
     "tape": "^4.7.0"
