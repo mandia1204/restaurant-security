@@ -10,7 +10,7 @@ const strategyCallbacks = () => {
           if(user){
             return done(null, { userName: user.userName });
           }else{
-            return done(new Error("User not found"), null);
+            return done(new Error('User not found'), null);
           }
         });
     },

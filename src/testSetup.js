@@ -36,11 +36,11 @@ var jsdom = require('jsdom').jsdom;
 var exposedProperties = ['window', 'navigator', 'document'];
 
 global.document = jsdom('');
-global.window = document.defaultView;
-Object.keys(document.defaultView).forEach((property) => {
+global.window = document.defaultView;//eslint-disable-line no-undef
+Object.keys(document.defaultView).forEach((property) => {//eslint-disable-line no-undef
   if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
-    global[property] = document.defaultView[property];
+    global[property] = document.defaultView[property];//eslint-disable-line no-undef
   }
 });
 

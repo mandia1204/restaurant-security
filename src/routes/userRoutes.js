@@ -13,7 +13,7 @@ const userRoutes = (app) => {
   });
 
   app.get('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
-    service.findUsers({}, { userName: "asc"}).then((users) => {
+    service.findUsers({}, { userName: 'asc'}).then((users) => {
       res.json({info: 'users found successfully', data: users});
     }).catch((err) => {
       res.json({info: 'error during find users', error: err});

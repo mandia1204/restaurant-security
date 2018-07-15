@@ -1,10 +1,10 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-import Auth from './auth/auth.js'
+import Auth from './auth/auth.js';
 
 const ExpressServer = () => {
-  const _getServer = () =>{
+  const getServer = () =>{
     const app = express();
 
     app.use(bodyParser.json());
@@ -20,8 +20,8 @@ const ExpressServer = () => {
     return app;
   };
   return {
-    getServer: _getServer
-  }
+    getServer
+  };
 };
 
 export default ExpressServer;

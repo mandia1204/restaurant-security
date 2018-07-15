@@ -19,7 +19,7 @@ const tokenRoutes = (app) => {
     }
   });
   /* VALIDATE TOKEN */
-  app.get("/token", Auth().authenticate('validateWithDb'), (req, res) => {
+  app.get('/token', Auth().authenticate('validateWithDb'), (req, res) => {
     res.sendStatus(200);
   });
 };

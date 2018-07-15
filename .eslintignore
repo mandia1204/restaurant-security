@@ -1,0 +1,6 @@
+/build/**
+/webpack/**
+/dist/**
+/node_modules/**
+!.eslintrc.js
+/src/db/scripts/**

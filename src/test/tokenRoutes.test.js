@@ -3,16 +3,16 @@ import request from 'supertest';
 import test from 'tape';
 import express from '../expressServer.js';
 
-const _routesFactory = {
+const routesFactory = {
   getRoutes: (stub) => {
     return proxyquire('../routes/tokenRoutes.js', { '../services/tokenService.js': stub });
   }
 };
 
-const _tokenServiceStub = { default: () => {
+const tokenServiceStub = { default: () => {
   return {
     generateToken : (data) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if(data.userName == 'matt') {
           resolve('token_generated');
         }else {
@@ -20,7 +20,7 @@ const _tokenServiceStub = { default: () => {
         }
       });
     }
-  }
+  };
 }};
 
 const _gehttpServer = (port, routes) => {
@@ -32,7 +32,7 @@ const _gehttpServer = (port, routes) => {
 };
 
 test('POST /token, valid user returns token.', (t) => {
-  const routes = _routesFactory.getRoutes(_tokenServiceStub);
+  const routes = routesFactory.getRoutes(tokenServiceStub);
   const data = {userName: 'matt', password:'1234'};
   const httpServer = _gehttpServer(3005, routes);
 
@@ -52,7 +52,7 @@ test('POST /token, valid user returns token.', (t) => {
 });
 
 test('POST /token, invalid user returns 401.', (t) => {
-  const routes = _routesFactory.getRoutes(_tokenServiceStub);
+  const routes = routesFactory.getRoutes(tokenServiceStub);
   const data = {userName: 'matteo', password:'1234'};
   const httpServer = _gehttpServer(3006, routes);
 
@@ -72,7 +72,7 @@ test('POST /token, invalid user returns 401.', (t) => {
 });
 
 test('POST /token, no credential returns 401.', (t) => {
-  const routes = _routesFactory.getRoutes(_tokenServiceStub);
+  const routes = routesFactory.getRoutes(tokenServiceStub);
   const data = {};
   const httpServer = _gehttpServer(3007, routes);
 

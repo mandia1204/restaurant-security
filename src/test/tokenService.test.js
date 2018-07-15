@@ -3,10 +3,10 @@ import test from 'tape';
 import jwt from 'jwt-simple';
 import cfg from '../auth/config.js';
 
-const _userServiceStub = { default: () => {
+const userServiceStub = { default: () => {
   return {
     findUser : (data) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if(data.userName == 'matt') {
           resolve({userName: 'matt'});
         }else {
@@ -14,20 +14,20 @@ const _userServiceStub = { default: () => {
         }
       });
     }
-  }
+  };
 }};
 
-const _serviceFactory = {
+const serviceFactory = {
   getService: (stub) => {
     return proxyquire('../services/tokenService.js', { './userService.js': stub });
   }
 };
 
 test('user found, returns token with all required values.', (t) => {
-  const service = _serviceFactory.getService(_userServiceStub).default();
+  const service = serviceFactory.getService(userServiceStub).default();
   const data = {userName: 'matt'};
 
-  const promise = service.generateToken(data).then((token) => {
+  service.generateToken(data).then((token) => {
     const decoded = jwt.decode(token, cfg.jwtSecret);
     const valid = decoded.userName === data.userName && decoded.iss === cfg.issuer
       && decoded.aud === cfg.audience && decoded.exp>0;
@@ -37,10 +37,10 @@ test('user found, returns token with all required values.', (t) => {
 });
 
 test('user not found, returns null.', (t) => {
-  const service = _serviceFactory.getService(_userServiceStub).default();
+  const service = serviceFactory.getService(userServiceStub).default();
   const data = {userName: 'matteo'};
 
-  const promise = service.generateToken(data).then((token) => {
+  service.generateToken(data).then((token) => {
     t.ok(token == null, 'token is null.');
     t.end();
   });

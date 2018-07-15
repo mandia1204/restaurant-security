@@ -15,7 +15,7 @@ const mongooseUtil = () => {
 
   return {
     connect
-  }
+  };
 };
 
 export default mongooseUtil;
