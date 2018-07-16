@@ -1,24 +1,24 @@
-import tokenService from '../services/tokenService.js';
-import Auth from '../auth/auth.js';
+import tokenService from '../services/tokenService';
+import Auth from '../auth/auth';
 
 const tokenRoutes = (app) => {
   const service = tokenService();
-  /* GENERATE TOKEN */
+  // GENERATE TOKEN
   app.post('/token', (req, res) => {
-      if (req.body.userName && req.body.password) {
-        const query = {'userName': req.body.userName, 'password': req.body.password};
-        service.generateToken(query).then((token) => {
-          if(token) {
-            res.json({ token: token });
-          } else {
-            res.sendStatus(401);
-          }
-        });
+    if (req.body.userName && req.body.password) {
+      const query = { userName: req.body.userName, password: req.body.password };
+      service.generateToken(query).then((token) => {
+        if (token) {
+          res.json({ token });
+        } else {
+          res.sendStatus(401);
+        }
+      });
     } else {
-        res.sendStatus(401);
+      res.sendStatus(401);
     }
   });
-  /* VALIDATE TOKEN */
+  // VALIDATE TOKEN
   app.get('/token', Auth().authenticate('validateWithDb'), (req, res) => {
     res.sendStatus(200);
   });

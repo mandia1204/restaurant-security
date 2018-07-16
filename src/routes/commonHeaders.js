@@ -1,5 +1,5 @@
-import mongooseUtil from '../db/mongooseUtil.js';
-import Debug  from 'debug'; 
+import Debug from 'debug';
+import mongooseUtil from '../db/mongooseUtil';
 import DebugNamespaces from '../util/debugNameSpaces';
 
 const debug = Debug(DebugNamespaces.http);

@@ -1,29 +1,30 @@
 module.exports = {
-    'env': {
-        'browser': false,
-        'commonjs': true,
-        'es6': true,
-        'node': true
+    env: {
+        browser: false,
+        commonjs: true,
+        es6: true,
+        node: true
     },
-    'extends': 'eslint:recommended',
-    'parser': 'babel-eslint',
-    'parserOptions': {
-        'ecmaFeatures': {
-            'experimentalObjectRestSpread': true,
-            'jsx': true
+    extends: ['eslint:recommended', 'airbnb-base'],
+    parser: 'babel-eslint',
+    parserOptions: {
+        ecmaFeatures: {
+            experimentalObjectRestSpread: true,
+            jsx: false,
         },
-        'sourceType': 'module'
+        sourceType: 'module'
     },
-    'rules': {
-        'quotes': [
+    rules: {
+        quotes: [
             'error',
             'single'
         ],
-        'semi': [
+        semi: [
             'error',
             'always'
         ],
-        //'no-console':'off',
-        //'no-unused-vars':'off'
+        'linebreak-style': ['error', 'windows']
+        // 'no-console':'off',
+        // 'no-unused-vars':'off'
     }
 };

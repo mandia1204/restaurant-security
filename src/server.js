@@ -1,8 +1,8 @@
-import express from './expressServer.js';
-import commonHeaders from './routes/commonHeaders.js';
-import userRoutes from './routes/userRoutes.js';
-import tokenRoutes from './routes/tokenRoutes.js';
-import Debug  from 'debug'; 
+import Debug from 'debug';
+import express from './expressServer';
+import commonHeaders from './routes/commonHeaders';
+import userRoutes from './routes/userRoutes';
+import tokenRoutes from './routes/tokenRoutes';
 import DebugNamespaces from './util/debugNameSpaces';
 
 const debug = Debug(DebugNamespaces.server);

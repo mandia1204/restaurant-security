@@ -3,5 +3,7 @@
         "node_modules/": true
     },
     "eslint.enable": true,
-    "eslint.provideLintTask": true
+    "eslint.provideLintTask": true,
+    "editor.tabSize": 2,
+    "eslint.autoFixOnSave": true
 }

@@ -1,4 +1,4 @@
-import Debug  from 'debug'; 
+import Debug from 'debug';
 import DebugNamespaces from '../util/debugNameSpaces';
 
 const debug = Debug(DebugNamespaces.mongo);
@@ -6,22 +6,22 @@ const debug = Debug(DebugNamespaces.mongo);
 const connectionEvents = (mongoose) => {
   const conn = mongoose.connection;
 
-  conn.on('connecting', function() {
+  conn.on('connecting', () => {
     debug('connecting to MongoDB...');
   });
-  conn.on('error', function(error) {
+  conn.on('error', (error) => {
     debug(`Error in MongoDb connection: ${error}`);
   });
-  conn.on('connected', function() {
+  conn.on('connected', () => {
     debug('MongoDB connected!');
   });
-  conn.once('open', function() {
+  conn.once('open', () => {
     debug('MongoDB connection opened!');
   });
-  conn.on('reconnected', function () {
+  conn.on('reconnected', () => {
     debug('MongoDB reconnected!');
   });
-  conn.on('disconnected', function() {
+  conn.on('disconnected', () => {
     debug('MongoDB disconnected!');
   });
 };

@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
-import getConnectionString from './connectionString.js';
-import mongooseOptions from './mongooseOptions.js';
-import connectionEvents from './connectionEvents.js';
-import Debug  from 'debug'; 
+import Debug from 'debug';
+import getConnectionString from './connectionString';
+import mongooseOptions from './mongooseOptions';
+import connectionEvents from './connectionEvents';
 import DebugNamespaces from '../util/debugNameSpaces';
 
 const debug = Debug(DebugNamespaces.mongo);
 
 const mongooseUtil = () => {
   const connect = () => {
-    if(mongoose.connection.readyState === 0) {
+    if (mongoose.connection.readyState === 0) {
       debug('Not connected to db, trying to connect...');
       const connString = getConnectionString();
       connectionEvents(mongoose);
@@ -18,7 +18,7 @@ const mongooseUtil = () => {
   };
 
   return {
-    connect
+    connect,
   };
 };
 
