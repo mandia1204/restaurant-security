@@ -1,5 +1,7 @@
 {
     "files.exclude": {
         "node_modules/": true
-    }
+    },
+    "eslint.enable": true,
+    "eslint.provideLintTask": true
 }

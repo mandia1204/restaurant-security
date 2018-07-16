@@ -2,12 +2,16 @@ import jwt from 'jwt-simple';
 import userService from './userService.js';
 import cfg from '../auth/config.js';
 import moment from 'moment';
+import Debug  from 'debug';
+import DebugNamespaces from '../util/debugNameSpaces';
+
+const debug = Debug(DebugNamespaces.token);
 
 const tokenService = () => {
   const service = userService();
-  const generateToken = (requestData) => {
+  const generateToken = requestData => {
     const findPromise = service.findUser(requestData);
-    return findPromise.then((user) => {
+    return findPromise.then(user => {
       if (user) {
           const payload = {
               userName: user.userName,
@@ -18,8 +22,8 @@ const tokenService = () => {
           return jwt.encode(payload, cfg.jwtSecret);
       }
       return null;
-    }).catch((err) => {
-      console.log(err);
+    }).catch(err => {
+      debug(err);
       return null;
     });
   };

@@ -2,8 +2,10 @@ import express from './expressServer.js';
 import commonHeaders from './routes/commonHeaders.js';
 import userRoutes from './routes/userRoutes.js';
 import tokenRoutes from './routes/tokenRoutes.js';
-import colors from 'colors/safe';
+import Debug  from 'debug'; 
+import DebugNamespaces from './util/debugNameSpaces';
 
+const debug = Debug(DebugNamespaces.server);
 const app = express().getServer();
 
 commonHeaders(app);
@@ -13,9 +15,8 @@ tokenRoutes(app);
 const port = 3001;
 app.listen(port, (err) => {
   if (err) {
-    console.log(err);
+    debug(err);
   } else {
-    console.log(colors.green(`Listening on port ${port}`));
-    //open(`http://localhost:${port}`);
+    debug(`Listening on port ${port}`);
   }
 });
