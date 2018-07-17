@@ -4,7 +4,7 @@ import test from 'tape';
 import express from '../expressServer';
 
 const routesFactory = {
-  getRoutes: stub => proxyquire('../routes/tokenRoutes.js', { '../services/tokenService.js': stub }),
+  getRoutes: stub => proxyquire('../routes/tokenRoutes', { '../services/tokenService': stub }),
 };
 
 const tokenServiceStub = {
