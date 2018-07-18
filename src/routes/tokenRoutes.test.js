@@ -27,7 +27,7 @@ const gethttpServer = (port, routes) => {
   return { app, server };
 };
 
-test('POST /token, valid user returns token.', (t) => {
+test('tokenRoutes, POST /token with valid user, returns token.', (t) => {
   const routes = routesFactory.getRoutes(tokenServiceStub);
   const data = { userName: 'matt', password: '1234' };
   const httpServer = gethttpServer(3005, routes);
@@ -47,7 +47,7 @@ test('POST /token, valid user returns token.', (t) => {
     });
 });
 
-test('POST /token, invalid user returns 401.', (t) => {
+test('tokenRoutes, POST /token with invalid user, returns 401.', (t) => {
   const routes = routesFactory.getRoutes(tokenServiceStub);
   const data = { userName: 'matteo', password: '1234' };
   const httpServer = gethttpServer(3006, routes);
@@ -67,7 +67,7 @@ test('POST /token, invalid user returns 401.', (t) => {
     });
 });
 
-test('POST /token, no credential returns 401.', (t) => {
+test('tokenRoutes, POST /token with no credential, returns 401.', (t) => {
   const routes = routesFactory.getRoutes(tokenServiceStub);
   const data = {};
   const httpServer = gethttpServer(3007, routes);
