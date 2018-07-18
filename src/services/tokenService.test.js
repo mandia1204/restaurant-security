@@ -22,7 +22,7 @@ const serviceFactory = {
   getService: stub => proxyquire('../services/tokenService', { './userService': stub }),
 };
 
-test('tokenService, user found, returns token with all required values.', (t) => {
+test('tokenService.generateToken(), user found, returns token with all required values.', (t) => {
   const service = serviceFactory.getService(userServiceStub).default();
   const data = { userName: 'matt' };
   return service.generateToken(data).then((token) => {
@@ -34,7 +34,7 @@ test('tokenService, user found, returns token with all required values.', (t) =>
   });
 });
 
-test('tokenService, user not found, returns null.', (t) => {
+test('tokenService.generateToken(), user not found, returns null.', (t) => {
   const service = serviceFactory.getService(userServiceStub).default();
   const data = { userName: 'matteo' };
 
