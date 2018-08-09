@@ -8,7 +8,8 @@
     "test": "babel-tape-runner src/**/*.test.js | faucet",
     "build-dev": "babel src -d build --copy-files",
     "build": "webpack",
-    "serve": "node securityApp.js"
+    "serve": "node securityApp.js",
+    "debug": "babel-node --nolazy --inspect-brk=9229 src/routes/tokenRoutes.test.js"
   },
   "author": "Marvin Andia",
   "license": "ISC",
