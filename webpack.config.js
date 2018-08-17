@@ -25,7 +25,7 @@ module.exports = {
     new CopyWebpackPlugin([
       'package.json',
       'dist',
-    ]),
+    ], { context: './' }),
   ],
   output: {
     filename: '[name].js',
