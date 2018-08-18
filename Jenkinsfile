@@ -9,14 +9,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building..'
                 sh 'npm run build'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-                sh 'npm run test'
+                ansiColor('xterm') {
+                    sh 'npm run test'
+                }
             }
         }
     }
