@@ -12,7 +12,7 @@ commonHeaders(app);
 userRoutes(app);
 tokenRoutes(app);
 
-const port = 3001;
+const port = 3001; // just a comment
 app.listen(port, (err) => {
   if (err) {
     debug(err);
