@@ -20,3 +20,5 @@ app.listen(port, (err) => {
     debug(`Listening on port ${port}`);
   }
 });
+
+console.log('oliiii');
