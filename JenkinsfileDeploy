@@ -1,9 +1,6 @@
 pipeline {
     agent any
 	tools {nodejs "localnode"}
-	environment {
-     SERVICE_PATH = 'C:\\Users\\Marvin\\Documents\\Restaurant\\dist\\security'
-	}
     stages {
 		stage('Stop service') {
 			steps {
@@ -13,16 +10,15 @@ pipeline {
 		stage('Clean folder') {
 			steps {
 				script {
-					def path = env.SERVICE_PATH.replace(':\\','/').replace('\\','/')
-					sh "rm -rf /${path}/*"
+					svcPath = env.SECURITY_SERVICE_PATH.replace(':\\','/').replace('\\','/')
+					sh "rm -rf /${svcPath}/*"
 				}
 			}
 		}
         stage('Copy artifact') {
             steps {
+                copyArtifacts(projectName: 'rs-security-build/master', target: "${env.SECURITY_SERVICE_PATH}")
 				script {
-					copyArtifacts(projectName: 'rs-security-build/master', target: "${SERVICE_PATH}")
-					def svcPath = env.SERVICE_PATH.replace(':\\','/').replace('\\','/')
 					def distPath = "/${svcPath}/dist"
 					
 					sh "[ -d ${distPath} ] && [ \"\$(ls -A ${distPath})\" ] && mv -v ${distPath}/* /${svcPath} || echo 'Nothing to copy!'"
@@ -33,7 +29,6 @@ pipeline {
 		stage('Install dependencies') {
 			steps {
 				script {
-					def svcPath = env.SERVICE_PATH.replace(':\\','/').replace('\\','/')
 					sh "(cd /${svcPath} ; npm install --production)"
 				}
 			}
