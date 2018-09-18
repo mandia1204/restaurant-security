@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "babel-node src/startMessage.js",
     "start": "nodemon src/server.js --exec babel-node",
-    "test": "babel-tape-runner src/**/*.test.js | faucet",
+    "test": "mkdirp report/test -p && babel-tape-runner src/**/*.test.js | tee report/test/test.out.tap | faucet",
     "build-dev": "babel src -d build --copy-files",
     "build": "webpack",
     "serve": "node securityApp.js",
@@ -27,6 +27,7 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.12.0",
     "faucet": "0.0.1",
+    "mkdirp": "^0.5.1",
     "nodemon": "^1.18.3",
     "proxyquire": "^1.8.0",
     "sinon": "^6.1.3",
