@@ -1,4 +1,4 @@
 #!/usr/bin/groovy
 
 @Library('jenkins-library') _
-nodeAppDeployPipeline(serviceName: 'security-app', servicePath: env.SECURITY_SERVICE_PATH, projectName: 'rs-security-build/master')
+nodeAppDeployPipeline(serviceName: 'security-app', servicePath: env.SECURITY_SERVICE_PATH, projectName: 'rs-security-build/master', skipInstallDependencies: false)
