@@ -1,18 +1,15 @@
-FROM node:7.8.0
+FROM node:8
 
 WORKDIR /var/www
 
 # Install app dependencies
-COPY ./src/package.json /var/www
+COPY ./dist/package*.json ./
 
 RUN npm install --production
 
-COPY ./src/ /var/www
+COPY ./dist/securityApp.js .
 
-RUN npm run build
-
-RUN rm -r routes services models auth db
-RUN rm server.js startMessage.js testSetup.js index.html
+ENV DEBUG=app:*
 
 EXPOSE 3001
 CMD [ "npm", "run", "serve" ]

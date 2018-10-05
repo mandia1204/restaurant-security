@@ -21,6 +21,7 @@ db.createUser(
 connect db:
 
 mongo --port 27017 -u "marvin" -p "1234" --authenticationDatabase "admin"
+mongo -u "matt" -p "1234" --authenticationDatabase "admin"
 
 
 2- create restaurant_security db (as admin):
