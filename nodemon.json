@@ -1,5 +1,6 @@
 {
     "env": {
-      "DEBUG": "app:*"
+      "DEBUG": "app:*",
+      "NODE_CONFIG_DIR": "./src/config"
     }
 }

@@ -1,5 +1,6 @@
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   target: 'node',
@@ -8,6 +9,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js'],
+    alias: {
+      config: path.resolve(__dirname, 'config/default.js'),
+    },
   },
   module: {
     rules: [
@@ -24,6 +28,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       'package.json',
+      { from: 'src/config', to: 'config' },
     ]),
   ],
   output: {
