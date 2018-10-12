@@ -6,4 +6,12 @@ module.exports = {
     port: 27017,
     hostName: 'localhost',
   },
+  auth: {
+    jwtSecret: 'Th1s1sth3endBeatuf@frieND823762873',
+    issuer: 'security.mattcompany.com',
+    audience: 'restaurant.mattcompany.com',
+    jwtSession: {
+      session: false,
+    },
+  },
 };

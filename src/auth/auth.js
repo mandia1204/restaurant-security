@@ -1,11 +1,10 @@
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
+import config from 'config';
 import strategyCallbacks from './strategyCallbacks';
-import cfg from './config';
 
-// const ExtractJwt = passportJWT.ExtractJwt;
-// const Strategy = passportJWT.Strategy;
 const { ExtractJwt, Strategy } = passportJWT;
+const cfg = config.get('auth');
 
 const params = {
   secretOrKey: cfg.jwtSecret,

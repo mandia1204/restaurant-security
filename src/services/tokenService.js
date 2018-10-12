@@ -1,11 +1,12 @@
 import jwt from 'jwt-simple';
 import moment from 'moment';
 import Debug from 'debug';
+import config from 'config';
 import userService from './userService';
-import cfg from '../auth/config';
 import DebugNamespaces from '../util/debugNameSpaces';
 
 const debug = Debug(DebugNamespaces.token);
+const cfg = config.get('auth');
 
 const tokenService = () => {
   const service = userService();
