@@ -4,7 +4,7 @@ module.exports = {
     password: '1234',
     dbName: 'restaurant_security',
     port: 27017,
-    hostName: 'localhost',
+    hostName: 'security-db',
   },
   auth: {
     jwtSecret: 'Th1s1sth3endBeatuf@frieND823762873',

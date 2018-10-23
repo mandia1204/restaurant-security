@@ -12,7 +12,7 @@ commonHeaders(app);
 userRoutes(app);
 tokenRoutes(app);
 
-debug('Starting security-app version 1');
+debug('Starting security-app version 2.1');
 
 const port = 3001;
 app.listen(port, (err) => {
