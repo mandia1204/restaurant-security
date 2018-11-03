@@ -23,7 +23,7 @@ module.exports = {
             'error',
             'always'
         ],
-        'linebreak-style': ['error', 'windows']
+        'linebreak-style': ['error', 'unix']
         // 'no-console':'off',
         // 'no-unused-vars':'off'
     }
