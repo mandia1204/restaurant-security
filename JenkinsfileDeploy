@@ -1,4 +1,4 @@
 #!/usr/bin/groovy
 
 @Library('jenkins-library') _
-nodeAppDeployPipeline(appName: 'security', projectName: 'rs-security-build/master')
+appDeployPipeline(appName: 'security', projectName: 'rs-security-build/master')
