@@ -11,7 +11,7 @@ const tokenServiceStub = {
   default: () => ({
     generateToken: data => new Promise((resolve) => {
       if (data.userName === 'matt') {
-        resolve('token_generated');
+        resolve({ token: 'token_generated', refreshToken: 'refresh_token_generated' });
       } else {
         resolve(null);
       }
@@ -29,18 +29,18 @@ const gethttpServer = (port, routes) => {
 
 test('tokenRoutes, POST /token with valid user, returns token.', (t) => {
   const routes = routesFactory.getRoutes(tokenServiceStub);
-  const data = { userName: 'matt', password: '1234' };
+  const creds = { userName: 'matt', password: '1234' };
   const httpServer = gethttpServer(3005, routes);
 
   request(httpServer.app)
     .post('/token')
-    .send(data)
+    .send(creds)
     .expect(200)
     .expect('Content-Type', /json/)
     .end((err, res) => {
       const response = res.body;
-      t.error(err, 'No error');
-      t.ok(response.token != null, 'Token is not null.');
+      t.error(err, 'error returned');
+      t.ok(response.token != null);
       t.end();
 
       httpServer.server.close();
@@ -49,18 +49,18 @@ test('tokenRoutes, POST /token with valid user, returns token.', (t) => {
 
 test('tokenRoutes, POST /token with invalid user, returns 401.', (t) => {
   const routes = routesFactory.getRoutes(tokenServiceStub);
-  const data = { userName: 'matteo', password: '1234' };
+  const creds = { userName: 'matteo', password: '1234' };
   const httpServer = gethttpServer(3006, routes);
 
   request(httpServer.app)
     .post('/token')
-    .send(data)
+    .send(creds)
     .expect(401)
     .expect('Content-Type', 'text/plain; charset=utf-8')
     .end((err, res) => {
       const response = res.body;
-      t.error(err, 'No error');
-      t.ok(response.token == null, 'Token is null.');
+      t.error(err, 'error returned');
+      t.ok(response.token == null);
       t.end();
 
       httpServer.server.close();
@@ -69,17 +69,17 @@ test('tokenRoutes, POST /token with invalid user, returns 401.', (t) => {
 
 test('tokenRoutes, POST /token with no credential, returns 401.', (t) => {
   const routes = routesFactory.getRoutes(tokenServiceStub);
-  const data = {};
+  const creds = {};
   const httpServer = gethttpServer(3007, routes);
 
   request(httpServer.app)
     .post('/token')
-    .send(data)
+    .send(creds)
     .expect(401)
     .expect('Content-Type', 'text/plain; charset=utf-8')
     .end((err, res) => {
       const response = res.body;
-      t.error(err, 'No error');
+      t.error(err, 'error returned');
       t.ok(response.token == null, 'Token is null.');
       t.end();
 

@@ -8,6 +8,7 @@ module.exports = {
   },
   auth: {
     jwtSecret: 'Th1s1sth3endBeatuf@frieND823762873',
+    jwtRefreshSecret: 'NoOneTrustth1sh881%',
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',
     jwtSession: {

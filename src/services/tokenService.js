@@ -6,10 +6,18 @@ import userService from './userService';
 import DebugNamespaces from '../util/debugNameSpaces';
 
 const debug = Debug(DebugNamespaces.token);
-const cfg = config.get('auth');
+const authConfig = config.get('auth');
 
 const tokenService = () => {
   const service = userService();
+
+  const getTokenPayload = (user, authCfg) => ({
+    userName: user.userName,
+    iss: authCfg.issuer,
+    aud: authCfg.audience,
+    exp: moment().add(1, 'hours').unix(),
+  });
+
   const generateToken = (requestData) => {
     if (!requestData.userName || !requestData.password) {
       debug('null userName or password');
@@ -17,16 +25,15 @@ const tokenService = () => {
     }
     const findPromise = service.findUser(requestData);
     return findPromise.then((user) => {
-      if (user) {
-        const payload = {
-          userName: user.userName,
-          iss: cfg.issuer,
-          aud: cfg.audience,
-          exp: moment().add(1, 'hours').unix(),
-        };
-        return jwt.encode(payload, cfg.jwtSecret);
+      if (!user) {
+        return null;
       }
-      return null;
+      const token = jwt.encode(getTokenPayload(user, authConfig), authConfig.jwtSecret);
+      const refreshToken = jwt.encode(getTokenPayload(user, authConfig), authConfig.jwtRefreshSecret);
+      return {
+        token,
+        refreshToken,
+      };
     }).catch((err) => {
       debug(err);
       return null;

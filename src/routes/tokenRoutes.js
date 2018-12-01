@@ -5,9 +5,9 @@ const tokenRoutes = (app) => {
   const service = tokenService();
   // generate token
   app.post('/token', (req, res) => {
-    service.generateToken(req.body).then((token) => {
-      if (token) {
-        res.json({ token });
+    service.generateToken(req.body).then((data) => {
+      if (data) {
+        res.json(data);
       } else {
         res.sendStatus(401);
       }

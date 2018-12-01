@@ -23,7 +23,8 @@ module.exports = {
             'error',
             'always'
         ],
-        'linebreak-style': ['error', 'unix']
+		'linebreak-style': ['error', 'unix'],
+		'max-len': ['error', { 'code': 125 }]
         // 'no-console':'off',
         // 'no-unused-vars':'off'
     }
