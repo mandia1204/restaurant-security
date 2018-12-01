@@ -11,6 +11,10 @@ const cfg = config.get('auth');
 const tokenService = () => {
   const service = userService();
   const generateToken = (requestData) => {
+    if (!requestData.userName || !requestData.password) {
+      debug('null userName or password');
+      return Promise.resolve(null);
+    }
     const findPromise = service.findUser(requestData);
     return findPromise.then((user) => {
       if (user) {

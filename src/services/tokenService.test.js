@@ -24,7 +24,7 @@ const serviceFactory = {
 
 test('tokenService.generateToken(), user found, returns token with all required values.', (t) => {
   const service = serviceFactory.getService(userServiceStub).default();
-  const data = { userName: 'matt' };
+  const data = { userName: 'matt', password: '1234' };
   const cfg = config.get('auth');
   return service.generateToken(data).then((token) => {
     const decoded = jwt.decode(token, cfg.jwtSecret);
@@ -38,10 +38,20 @@ test('tokenService.generateToken(), user found, returns token with all required 
 
 test('tokenService.generateToken(), user not found, returns null.', (t) => {
   const service = serviceFactory.getService(userServiceStub).default();
-  const data = { userName: 'matteo' };
+  const data = { userName: 'matteo', password: '1234' };
 
   return service.generateToken(data).then((token) => {
     t.ok(token == null, 'token is null.');
+    t.end();
+  });
+});
+
+test('tokenService.generateToken(), missing userName and password, returns null.', (t) => {
+  const service = serviceFactory.getService(userServiceStub).default();
+  const data = { };
+
+  return service.generateToken(data).then((token) => {
+    t.ok(token == null);
     t.end();
   });
 });
