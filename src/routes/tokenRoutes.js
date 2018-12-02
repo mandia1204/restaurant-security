@@ -1,11 +1,11 @@
-import tokenService from '../services/tokenService';
+import TokenService from '../services/tokenService';
 import Auth from '../auth/auth';
 
 const tokenRoutes = (app) => {
-  const service = tokenService();
+  const tokenService = TokenService();
   // generate token
   app.post('/token', (req, res) => {
-    service.generateToken(req.body).then((data) => {
+    tokenService.generateToken(req.body).then((data) => {
       if (data) {
         res.json(data);
       } else {
@@ -16,6 +16,16 @@ const tokenRoutes = (app) => {
   // validate token
   app.get('/token', Auth().authenticate('validateWithDb'), (req, res) => {
     res.sendStatus(200);
+  });
+  // refresh access token
+  app.post('/refresh', (req, res) => {
+    tokenService.refreshAccessToken(req.body).then((data) => {
+      if (data) {
+        res.json(data);
+      } else {
+        res.sendStatus(401);
+      }
+    });
   });
 };
 

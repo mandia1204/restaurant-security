@@ -27,7 +27,7 @@ test('tokenService.generateToken(), user found, returns token with all required 
   const creds = { userName: 'matt', password: '1234' };
   const cfg = config.get('auth');
   return service.generateToken(creds).then((data) => {
-    const decoded = jwt.decode(data.token, cfg.jwtSecret);
+    const decoded = jwt.decode(data.token, cfg.accessToken.jwtSecret);
     t.equal(decoded.userName, creds.userName);
     t.equal(decoded.iss, cfg.issuer);
     t.equal(decoded.aud, cfg.audience);

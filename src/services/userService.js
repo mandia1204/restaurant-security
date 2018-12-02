@@ -1,20 +1,13 @@
-import User from '../models/userModel';
+import UserDao from '../dataAccess/userDao';
 
 const userSevice = () => {
-  const findUsers = (params, sort) => {
-    let query = User.find(params);
-    if (sort) {
-      query = query.sort(sort);
-    }
-    return query.exec();
-  };
+  const userDao = UserDao();
 
-  const findUser = params => User.findOne(params).exec();
+  const findUsers = (params, sort) => userDao.findUsers(params, sort);
 
-  const saveUser = (user) => {
-    const newUser = new User(user);
-    return newUser.save();
-  };
+  const findUser = params => userDao.findUser(params);
+
+  const saveUser = user => userDao.saveUser(user);
 
   return {
     findUsers,

@@ -7,7 +7,7 @@ const { ExtractJwt, Strategy } = passportJWT;
 const cfg = config.get('auth');
 
 const params = {
-  secretOrKey: cfg.jwtSecret,
+  secretOrKey: cfg.accessToken.jwtSecret,
   issuer: cfg.issuer,
   audience: cfg.audience,
   jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),

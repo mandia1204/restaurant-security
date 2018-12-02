@@ -36,6 +36,8 @@ db.createUser(
    }
 )
 
+db.createCollection("tokens");
+
 3- add initial system user:
 
 db.users.insert({"userName":"matt", "password":"1234"})

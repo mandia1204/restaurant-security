@@ -7,10 +7,16 @@ module.exports = {
     hostName: 'security-db',
   },
   auth: {
-    jwtSecret: 'Th1s1sth3endBeatuf@frieND823762873',
-    jwtRefreshSecret: 'NoOneTrustth1sh881%',
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',
+    accessToken: {
+      jwtSecret: 'Th1s1sth3endBeatuf@frieND823762873',
+      exp: { amount: 30, unit: 'minutes' },
+    },
+    refreshToken: {
+      jwtSecret: 'NoOneTrustth1sh881%',
+      exp: { amount: 1, unit: 'month' },
+    },
     jwtSession: {
       session: false,
     },
