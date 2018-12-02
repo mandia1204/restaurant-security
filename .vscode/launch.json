@@ -25,8 +25,17 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}\\babel-node"
+			"name": "Launch Program",
+			"cwd": "${workspaceFolder}\\src",
+			"runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\babel-node.cmd",
+      "program": "${workspaceFolder}\\src\\server.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+			"name": "Launch Program(build folder)",
+			"cwd": "${workspaceFolder}\\build",
+      "program": "${workspaceFolder}\\build\\server.js"
     }
   ]
 }
