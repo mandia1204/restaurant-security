@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
-import Debug from 'debug';
 import getConnectionString from './connectionString';
 import mongooseOptions from './mongooseOptions';
 import connectionEvents from './connectionEvents';
 import DebugNamespaces from '../util/debugNameSpaces';
+import Logger from '../util/logger';
 
-const debug = Debug(DebugNamespaces.mongo);
+const logger = Logger(DebugNamespaces.mongo);
 
 const mongooseUtil = () => {
   const connect = () => {
     if (mongoose.connection.readyState === 0) {
-      debug('Not connected to db, trying to connect...');
+      logger.info('Not connected to db, trying to connect...');
       const connString = getConnectionString();
       connectionEvents(mongoose);
       mongoose.connect(connString, mongooseOptions);

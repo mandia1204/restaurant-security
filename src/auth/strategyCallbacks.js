@@ -1,15 +1,15 @@
-import Debug from 'debug';
 import userService from '../services/userService';
 import DebugNamespaces from '../util/debugNameSpaces';
+import Logger from '../util/logger';
 
-const debug = Debug(DebugNamespaces.strategyCallback);
+const logger = Logger(DebugNamespaces.strategyCallback);
 
 const strategyCallbacks = () => {
   const service = userService();
 
   return {
     validateDb: (payload, done) => {
-      debug('using strategyValidateUserDbCallback');
+      logger.info('using strategyValidateUserDbCallback');
       service.findUser({ userName: payload.userName }).then((user) => {
         if (user) {
           return done(null, { userName: user.userName });
@@ -18,7 +18,7 @@ const strategyCallbacks = () => {
       });
     },
     validate: (payload, done) => {
-      debug('using strategyValidateCallback');
+      logger.info('using strategyValidateCallback');
       return done(null, { userName: payload.userName });
     },
   };

@@ -1,10 +1,10 @@
-import Debug from 'debug';
 import UserService from './userService';
 import DebugNamespaces from '../util/debugNameSpaces';
 import TokenDao from '../dataAccess/tokenDao';
 import TokenEncoder from './tokenEncoder';
+import Logger from '../util/logger';
 
-const debug = Debug(DebugNamespaces.token);
+const logger = Logger(DebugNamespaces.token);
 const tokenService = () => {
   const userService = UserService();
   const tokenDao = TokenDao();
@@ -12,7 +12,7 @@ const tokenService = () => {
 
   const generateToken = (requestData) => {
     if (!requestData.userName || !requestData.password) {
-      debug('null userName or password');
+      logger.info('null userName or password');
       return Promise.resolve(null);
     }
     const findPromise = userService.findUser(requestData);
@@ -28,14 +28,14 @@ const tokenService = () => {
         refreshToken,
       };
     }).catch((err) => {
-      debug(err);
+      logger.error(err);
       return null;
     });
   };
 
   const refreshAccessToken = ({ userName, refreshToken }) => {
     if (!userName || !refreshToken) {
-      debug('null userName or refreshToken');
+      logger.info('null userName or refreshToken');
       return Promise.resolve(null);
     }
     const findTokenPromise = tokenDao.findToken({ refreshToken, userName });
@@ -48,7 +48,7 @@ const tokenService = () => {
         token: tokenEncoded,
       };
     }).catch((err) => {
-      debug(err);
+      logger.error(err);
       return null;
     });
   };
