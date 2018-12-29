@@ -17,8 +17,9 @@ const commonHeaders = (app) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-    logger.info('%s %s %o', req.method, req.url, req.headers);
+
     if (req.url !== '/metrics') {
+      logger.info('%s %s %o', req.method, req.url, req.headers);
       counter.inc({ method: req.method, handler: req.url });
     }
 
