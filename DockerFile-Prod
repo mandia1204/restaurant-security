@@ -12,6 +12,8 @@ COPY ./dist/securityApp.js .
 # this will be overrided by kubernetes configmap
 COPY ./dist/config ./config
 
+COPY ./dist/protos ./protos
+
 ENV DEBUG=app:*
 
 EXPOSE 3001
