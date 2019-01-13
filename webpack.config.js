@@ -29,6 +29,7 @@ module.exports = {
     new CopyWebpackPlugin([
       'package.json',
       { from: 'src/config', to: 'config' },
+      { from: 'src/protos', to: 'protos' },
     ]),
   ],
   output: {

@@ -1,3 +1,4 @@
+import client from '../client/loggingClient';
 import userService from '../services/userService';
 import Auth from '../auth/auth';
 
@@ -13,6 +14,7 @@ const userRoutes = (app) => {
   });
 
   app.get('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
+    client.logInfo({ text: 'calling findUsers', severity: 1 }, () => ({}));
     service.findUsers({}, { userName: 'asc' }).then((users) => {
       res.json({ info: 'users found successfully', data: users });
     }).catch((err) => {

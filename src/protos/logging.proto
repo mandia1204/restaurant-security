@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package logging;
+
+service LoggingService {
+	rpc LogInfo (Log) returns (Empty) {}
+}
+
+message Empty {}
+
+message Log {
+	string text = 1;
+	int32 severity = 2;
+}
