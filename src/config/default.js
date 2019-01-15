@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   database: {
     userName: process.env.SECURITY_DB_USER,
@@ -7,6 +9,7 @@ module.exports = {
     hostName: 'security-db',
   },
   loggingUrl: 'logging-app:50051',
+  baseDir: path.join(__dirname, '..'),
   auth: {
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',

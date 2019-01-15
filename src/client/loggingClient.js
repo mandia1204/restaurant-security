@@ -2,8 +2,7 @@ import grpc from 'grpc';
 import config from 'config';
 import * as protoLoader from '@grpc/proto-loader';
 
-const PROTO_PATH = `${__dirname}/../protos/logging.proto`;
-
+const PROTO_PATH = `${config.baseDir}/protos/logging.proto`;
 const packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
   {
