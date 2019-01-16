@@ -5,6 +5,7 @@
 			"SECURITY_DB_USER": "security_user",
 			"SECURITY_DB_PASSWORD": "1234",
 			"SECURITY_ACCESS_TOKEN_SECRET": "Th1s1sth3endBeatuf@frieND823762873",
-			"SECURITY_REFRESH_TOKEN_SECRET": "NoOneTrustth1sh881%"
+			"SECURITY_REFRESH_TOKEN_SECRET": "NoOneTrustth1sh881%",
+			"NODE_ENV": "development"
     }
 }

@@ -10,11 +10,11 @@ RUN npm install --production
 COPY ./dist/securityApp.js .
 
 # this will be overrided by kubernetes configmap
-COPY ./dist/config ./config
+COPY ./dist/config/production.js ./config
 
 COPY ./dist/protos ./protos
 
-ENV DEBUG=app:*
+ENV DEBUG=app:* NODE_ENV=production
 
 EXPOSE 3001
 CMD [ "npm", "run", "serve" ]
