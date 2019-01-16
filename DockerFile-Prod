@@ -10,7 +10,7 @@ RUN npm install --production
 COPY ./dist/securityApp.js .
 
 # this will be overrided by kubernetes configmap
-COPY ./dist/config/production.js ./config
+COPY ./dist/config/production.js ./config/production.js
 
 COPY ./dist/protos ./protos
 
