@@ -24,7 +24,10 @@ module.exports = {
             'always'
         ],
 		'linebreak-style': ['error', 'unix'],
-		'max-len': ['error', { 'code': 125 }]
+		'max-len': ['error', { 'code': 125 }],
+		'object-curly-newline': 'off',
+		'no-underscore-dangle': 'off',
+		'func-names': 'off'
         // 'no-console':'off',
         // 'no-unused-vars':'off'
     }

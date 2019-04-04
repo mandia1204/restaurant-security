@@ -16,10 +16,13 @@ const userDao = () => {
     return newUser.save();
   };
 
+  const updateUser = user => User.findByIdAndUpdate(user._id, user, { new: true });
+
   return {
     findUsers,
     findUser,
     saveUser,
+    updateUser,
   };
 };
 

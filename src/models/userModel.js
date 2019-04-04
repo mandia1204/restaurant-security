@@ -2,9 +2,13 @@ import mongoose from 'mongoose';
 import bluebird from 'bluebird';
 
 const userSchema = mongoose.Schema({
+  name: String,
   userName: String,
   password: String,
-  roles: [{ name: String }],
+  roles: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Role',
+  }],
 });
 
 mongoose.Promise = bluebird;

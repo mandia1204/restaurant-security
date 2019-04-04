@@ -9,7 +9,15 @@ const userRoutes = (app) => {
     service.saveUser(req.body).then((user) => {
       res.json({ info: 'user created successfully', data: user });
     }).catch((err) => {
-      res.json({ info: 'error during find users', error: err });
+      res.json({ info: 'error during save user', error: err });
+    });
+  });
+
+  app.put('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
+    service.updateUser(req.body).then((user) => {
+      res.json({ info: 'user updated successfully', data: user });
+    }).catch((err) => {
+      res.json({ info: 'error during update user', error: err });
     });
   });
 
