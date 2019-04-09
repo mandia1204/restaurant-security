@@ -7,6 +7,7 @@ const userSevice = () => {
     id: user._id,
     userName: user.userName || '',
     name: user.name || '',
+    isAdmin: user.isAdmin || false,
     roles: user.roles || [],
   });
 
@@ -15,9 +16,9 @@ const userSevice = () => {
 
   const findUser = params => userDao.findUser(params);
 
-  const saveUser = user => userDao.saveUser(user);
+  const saveUser = user => userDao.saveUser(user).then(u => toModel(u));
 
-  const updateUser = user => userDao.updateUser(user);
+  const updateUser = user => userDao.updateUser(user).then(u => toModel(u));
 
   return {
     findUsers,

@@ -12,11 +12,12 @@ const userDao = () => {
   const findUser = params => User.findOne(params).exec();
 
   const saveUser = (user) => {
-    const newUser = new User(user);
+    const { _id, ...restUser } = user;
+    const newUser = new User(restUser);
     return newUser.save();
   };
 
-  const updateUser = user => User.findByIdAndUpdate(user._id, user, { new: true });
+  const updateUser = user => User.findByIdAndUpdate(user.id, user, { new: true });
 
   return {
     findUsers,
