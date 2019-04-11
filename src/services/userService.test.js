@@ -9,10 +9,18 @@ const test = _test(tape);
 test('userService.saveUser(), calls save method and returns the promise.', (t) => {
   const user = { userName: '', password: '' };
 
-  const saveStub = sinon.stub(User.prototype, 'save').resolves({ id: 1234 });
+  const saveStub = sinon.stub(User.prototype, 'save').resolves({ _id: 1234,
+    userName: 'matt',
+    name: 'marvin',
+    isAdmin: true,
+    roles: ['abc', 'cdv'] });
 
   return userSevice().saveUser(user).then((data) => {
-    t.deepEqual(data, { id: 1234 }, 'it should resolve the promise correctly.');
+    t.deepEqual(data, { id: 1234,
+      userName: 'matt',
+      name: 'marvin',
+      isAdmin: true,
+      roles: ['abc', 'cdv'] }, 'it should resolve the promise correctly.');
     t.ok(saveStub.calledOnce, 'mongoose save should be called once');
 
     saveStub.restore();
@@ -23,7 +31,7 @@ test('userService.saveUser(), calls save method and returns the promise.', (t) =
 test('userService.findUsers(), passing params without sort, calls find, exec and returns the users', (t) => {
   const params = { userName: '' };
 
-  const execStub = sinon.stub().resolves([{ userName: 'test' }]);
+  const execStub = sinon.stub().resolves([{ _id: 1234, userName: 'test', name: 'marvin', isAdmin: true, roles: ['abc'] }]);
   const sortSpy = sinon.spy();
   const findStub = sinon.stub(User, 'find').callsFake(() => ({
     exec: execStub,
@@ -31,7 +39,11 @@ test('userService.findUsers(), passing params without sort, calls find, exec and
   }));
 
   return userSevice().findUsers(params).then((data) => {
-    t.deepEqual(data, [{ userName: 'test' }], 'it should resolve the promise and return the users.');
+    t.deepEqual(data, [{ id: 1234,
+      userName: 'test',
+      name: 'marvin',
+      isAdmin: true,
+      roles: ['abc'] }], 'it should resolve the promise and return the users.');
     t.ok(findStub.calledOnceWith(params), 'mongoose find should be called once with params');
     t.ok(execStub.calledOnce, 'exec should be called once');
     t.ok(!sortSpy.called, 'sort should not be called');
@@ -46,7 +58,7 @@ test('userService.findUsers(), passing params and sort, calls find,sort, exec an
   const params = { userName: '' };
   const sort = { userName: 'desc' };
 
-  const execStub = sinon.stub().resolves([{ userName: 'test' }]);
+  const execStub = sinon.stub().resolves([{ _id: 1234, userName: 'test', name: 'marvin', isAdmin: true, roles: ['abc'] }]);
   const sortStub = sinon.stub().callsFake(() => ({ exec: execStub }));
   const findStub = sinon.stub(User, 'find').callsFake(() => ({
     exec: execStub,
@@ -54,7 +66,11 @@ test('userService.findUsers(), passing params and sort, calls find,sort, exec an
   }));
 
   return userSevice().findUsers(params, sort).then((data) => {
-    t.deepEqual(data, [{ userName: 'test' }], 'it should resolve the promise and return the users.');
+    t.deepEqual(data, [{ id: 1234,
+      userName: 'test',
+      name: 'marvin',
+      isAdmin: true,
+      roles: ['abc'] }], 'it should resolve the promise and return the users.');
     t.ok(findStub.calledOnceWith(params), 'mongoose find should be called once with params');
     t.ok(execStub.calledOnce, 'exec should be called once');
     t.ok(sortStub.calledOnceWith(sort), 'sort should be called once with params');
