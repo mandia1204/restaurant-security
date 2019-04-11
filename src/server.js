@@ -1,4 +1,5 @@
 import promClient from 'prom-client';
+import './setup';
 import express from './expressServer';
 import commonHeaders from './routes/commonHeaders';
 import userRoutes from './routes/userRoutes';

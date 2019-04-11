@@ -1,10 +1,8 @@
-import mongoose from 'mongoose';
-import bluebird from 'bluebird';
+import mongoose, { Schema } from 'mongoose';
 
-const tokenSchema = mongoose.Schema({
+const tokenSchema = Schema({
   userName: String,
   refreshToken: String,
 });
 
-mongoose.Promise = bluebird;
 export default mongoose.model('Token', tokenSchema);

@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
-import bluebird from 'bluebird';
+import mongoose, { Schema } from 'mongoose';
 
-const userSchema = mongoose.Schema({
+const userSchema = Schema({
   name: String,
   userName: String,
   password: String,
@@ -12,5 +11,4 @@ const userSchema = mongoose.Schema({
   }],
 });
 
-mongoose.Promise = bluebird;
 export default mongoose.model('User', userSchema);
