@@ -27,7 +27,8 @@ module.exports = {
 		'max-len': ['error', { 'code': 125 }],
 		'object-curly-newline': 'off',
 		'no-underscore-dangle': 'off',
-		'func-names': 'off'
+		'func-names': 'off',
+		'max-len': ['error', { code: 160 }],
         // 'no-console':'off',
         // 'no-unused-vars':'off'
     }
