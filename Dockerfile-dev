@@ -1,0 +1,15 @@
+FROM node:8
+
+WORKDIR /var/www
+
+# Install app dependencies
+COPY ./package*.json /var/www/
+
+RUN npm install
+
+COPY . .
+
+ENV DEBUG=app:* NODE_ENV=development NODE_CONFIG_DIR=./src/config
+
+EXPOSE 3001
+CMD [ "npm", "start" ]

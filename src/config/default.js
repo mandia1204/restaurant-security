@@ -6,7 +6,7 @@ module.exports = {
     password: process.env.SECURITY_DB_PASSWORD,
     dbName: 'restaurant_security',
     port: 27017,
-    hostName: 'localhost',
+    hostName: 'security-db',
   },
   loggingUrl: 'localhost:50051',
   baseDir: path.join(__dirname, '..'),

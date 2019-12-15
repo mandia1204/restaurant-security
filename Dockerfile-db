@@ -1,5 +1,5 @@
 FROM mongo:4
 
-ADD ./scripts /scripts
+ADD ./src/db/scripts /scripts
 
 EXPOSE 27017
