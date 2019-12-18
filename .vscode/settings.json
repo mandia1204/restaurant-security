@@ -6,5 +6,11 @@
 	"eslint.lintTask.enable": true,
     "editor.tabSize": 2,
     "eslint.autoFixOnSave": true,
-    "files.associations": {"Dockerfile*": "dockerfile", "Jenkinsfile*":"groovy"}
+    "files.associations": {
+        "Dockerfile*": "dockerfile",
+        "Jenkinsfile*": "groovy"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }

@@ -15,7 +15,7 @@ module.exports = {
     audience: 'restaurant.mattcompany.com',
     accessToken: {
       jwtSecret: process.env.SECURITY_ACCESS_TOKEN_SECRET,
-      exp: { amount: 30, unit: 'minutes' },
+      exp: { amount: 3, unit: 'hour' },
     },
     refreshToken: {
       jwtSecret: process.env.SECURITY_REFRESH_TOKEN_SECRET,
