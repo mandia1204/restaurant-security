@@ -6,7 +6,7 @@ module.exports = {
     port: 27017,
     hostName: 'security-db',
   },
-  loggingUrl: 'logging-app:50051',
+  loggingUrl: 'logging-app:5051',
   baseDir: process.env.PWD,
   auth: {
     issuer: 'security.mattcompany.com',

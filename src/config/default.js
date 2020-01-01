@@ -8,7 +8,7 @@ module.exports = {
     port: 27017,
     hostName: 'security-db',
   },
-  loggingUrl: 'localhost:50051',
+  loggingUrl: 'localhost:5051',
   baseDir: path.join(__dirname, '..'),
   auth: {
     issuer: 'security.mattcompany.com',
