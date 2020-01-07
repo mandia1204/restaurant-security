@@ -10,5 +10,6 @@ build:
 deploy:
   kubectl:
     manifests:
+      - k8s/init/*.yaml
       - k8s/db/*.yaml
       - k8s/*.yaml

@@ -4,7 +4,7 @@ metadata:
   name: security-app
   namespace: default
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: security
   ports:
@@ -26,6 +26,8 @@ spec:
     metadata:
       labels:
         app: security
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       containers:
       - name: res-security
