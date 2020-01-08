@@ -9,7 +9,8 @@
     "build-dev": "babel src -d build --copy-files",
     "build": "webpack",
     "serve": "node securityApp.js",
-    "debug": "babel-node --nolazy --inspect-brk=9229 src/services/tokenService.test.js"
+    "debug": "babel-node --nolazy --inspect-brk=9229 src/services/tokenService.test.js",
+		"mongo": "cross-env NODE_ENV=development migrate-mongo status"
   },
   "author": "Marvin Andia",
   "license": "ISC",
@@ -26,11 +27,13 @@
     "babel-tape-runner": "^2.0.1",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
+    "dotenv": "^8.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.2",
     "eslint-plugin-import": "^2.16.0",
     "faucet": "0.0.1",
+    "migrate-mongo": "^7.0.1",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.18.11",
     "proxyquire": "^1.8.0",
