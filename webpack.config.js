@@ -12,7 +12,7 @@ module.exports = {
     securityApp: ['./src/server.js'],
   },
   resolve: {
-    extensions: ['*', '.js'],
+    extensions: ['*', '.js', '.ts'],
     alias: {
       config: path.resolve(__dirname, 'config/default.js'),
     },

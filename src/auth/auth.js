@@ -27,7 +27,7 @@ const Auth = () => {
   // TODO: TEST
   instance = {
     initialize: () => passport.initialize(),
-    authenticate: s => passport.authenticate(s, cfg.jwtSession),
+    authenticate: (s) => passport.authenticate(s, cfg.jwtSession),
   };
   return instance;
 };

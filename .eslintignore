@@ -5,3 +5,4 @@
 !.eslintrc.js
 /src/db/scripts/**
 .eslintrc.js
+webpack.config.js

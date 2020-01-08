@@ -1,7 +1,7 @@
 import Token from '../models/tokenModel';
 
 const tokenDao = () => {
-  const findToken = params => Token.findOne(params).exec();
+  const findToken = (params) => Token.findOne(params).exec();
 
   const saveToken = (token) => {
     const newToken = new Token(token);
