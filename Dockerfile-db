@@ -1,5 +1,12 @@
-FROM mongo:4
+FROM node:8
 
-ADD ./src/db/scripts /scripts
+WORKDIR /var/www
 
-EXPOSE 27017
+# Install app dependencies
+COPY ./package*.json /var/www/
+
+RUN npm install migrate-mongo cross-env dotenv
+
+COPY . .
+
+ENV DEBUG=app:* NODE_ENV=development NODE_CONFIG_DIR=./src/config

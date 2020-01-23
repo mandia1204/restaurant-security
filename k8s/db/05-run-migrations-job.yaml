@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: security-db-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: security-db-migrations
+        image: security-app-db
+        command: ["npm",  "run", "migrate-dev"]
+      restartPolicy: Never
+  backoffLimit: 2

@@ -5,6 +5,9 @@ build:
     - image: security-app
       docker:
         dockerfile: Dockerfile-dev
+    - image: security-app-db
+      docker:
+        dockerfile: Dockerfile-db
   local:
     push: false
 deploy:

@@ -10,7 +10,10 @@
     "build": "webpack",
     "serve": "node securityApp.js",
     "debug": "babel-node --nolazy --inspect-brk=9229 src/services/tokenService.test.js",
-		"mongo": "cross-env NODE_ENV=development migrate-mongo status"
+		"migrate-dev": "cross-env NODE_ENV=development npm run migrate",
+		"migrate-status-dev": "cross-env NODE_ENV=development npm run migrate-status",
+		"migrate": "migrate-mongo up",
+		"migrate-status": "migrate-mongo status"
   },
   "author": "Marvin Andia",
   "license": "ISC",

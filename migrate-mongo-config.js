@@ -2,7 +2,8 @@ if (process.env.NODE_ENV === 'development') {
 	require('dotenv').config(); //eslint-disable-line
 }
 
-const url = `mongodb://${process.env.ADMIN_DB_USER}:${process.env.ADMIN_DB_PASSWORD}@localhost:27017`;
+const url = `mongodb://${process.env.ADMIN_DB_USER}:${process.env.ADMIN_DB_PASSWORD}@${process.env.SECURITY_DB_HOST}:27017`;
+
 const config = {
   mongodb: {
     url,
