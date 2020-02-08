@@ -16,7 +16,7 @@ module.exports = {
 	},
 	plugins: [
 		'@typescript-eslint',
-    	'import',
+    'import',
 	],
 	settings: {
 		'import/parsers': {
@@ -28,7 +28,6 @@ module.exports = {
 		},
 	},
     rules: {
-		"@typescript-eslint/explicit-function-return-type": "off",
         quotes: [
             'error',
             'single'
@@ -39,19 +38,27 @@ module.exports = {
         ],
 		'linebreak-style': ['error', 'unix'],
 		'max-len': ['error', { 'code': 125 }],
+		'@typescript-eslint/indent': ['error', 2],
+		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/explicit-member-accessibility': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/interface-name-prefix': 'off',
+		'@typescript-eslint/ban-ts-ignore': 'off',
+		'@typescript-eslint/camelcase': 'off',
 		'object-curly-newline': 'off',
 		'no-underscore-dangle': 'off',
 		'func-names': 'off',
 		'max-len': ['error', { code: 160 }],
+		"import/extensions": ["error", "never", { "svg": "always" }]
         // 'no-console':'off',
         // 'no-unused-vars':'off'
 	},
 	overrides:[
 		{
-			"files": ["*.ts"],
-			"rules": {
-				"@typescript-eslint/explicit-function-return-type": ["error"]
-			}
-		}
+			files: ['**/*.ts'],
+			rules: {
+			  'object-curly-newline': 'off',
+			},
+		},
 	]
 };
