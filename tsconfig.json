@@ -19,7 +19,7 @@
 		// "allowSyntheticDefaultImports": true
 	},
 	"include": [
-		"src"
+		"src", "runNodeTests.js"
   ],
   "exclude": [
     "node_modules",

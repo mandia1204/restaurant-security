@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "babel-node src/startMessage.js",
     "start": "nodemon src/server.js --exec babel-node -r dotenv/config --extensions \".ts,.js\"",
-    "test": "mkdirp report/test -p && cross-env NODE_CONFIG_DIR=./src/config SECURITY_ACCESS_TOKEN_SECRET=abc SECURITY_REFRESH_TOKEN_SECRET=abc babel-tape-runner src/**/*.test.js | tee report/test/test.out.tap | faucet",
+    "test": "mkdirp report/test -p && cross-env NODE_CONFIG_DIR=./src/config SECURITY_ACCESS_TOKEN_SECRET=abc SECURITY_REFRESH_TOKEN_SECRET=abc babel-node --extensions '.js,.ts,.jsx,.tsx' runNodeTests.js src/**/*.test.js | tee report/test/test.out.tap | faucet",
     "build-dev": "babel src -d build --copy-files",
     "build": "webpack",
     "serve": "node securityApp.js",
@@ -39,7 +39,6 @@
     "@typescript-eslint/parser": "^2.12.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "babel-tape-runner": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",

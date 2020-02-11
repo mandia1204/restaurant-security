@@ -1,7 +1,9 @@
 import proxyquire from 'proxyquire';
 import request from 'supertest';
 import test from 'tape';
+import sinon from 'sinon';
 import express from '../expressServer';
+import * as tracer from '../tracing/tracer';
 
 const routesFactory = {
   getRoutes: (stub) => proxyquire('../routes/tokenRoutes', { '../services/tokenService': stub }),
@@ -27,7 +29,15 @@ const gethttpServer = (port, routes) => {
   return { app, server };
 };
 
+const getTracerMock = () => ({
+  extract: () => ({}),
+  startSpan: () => ({
+    finish: () => ({}),
+  }),
+});
+
 test('tokenRoutes, POST /token with valid user, returns token.', (t) => {
+  const getTracerStub = sinon.stub(tracer, 'getTracer').returns(getTracerMock());
   const routes = routesFactory.getRoutes(tokenServiceStub);
   const creds = { userName: 'matt', password: '1234' };
   const httpServer = gethttpServer(3005, routes);
@@ -42,12 +52,13 @@ test('tokenRoutes, POST /token with valid user, returns token.', (t) => {
       t.error(err, 'error returned');
       t.ok(response.token != null);
       t.end();
-
+      getTracerStub.restore();
       httpServer.server.close();
     });
 });
 
 test('tokenRoutes, POST /token with invalid user, returns 401.', (t) => {
+  const getTracerStub = sinon.stub(tracer, 'getTracer').returns(getTracerMock());
   const routes = routesFactory.getRoutes(tokenServiceStub);
   const creds = { userName: 'matteo', password: '1234' };
   const httpServer = gethttpServer(3006, routes);
@@ -62,12 +73,13 @@ test('tokenRoutes, POST /token with invalid user, returns 401.', (t) => {
       t.error(err, 'error returned');
       t.ok(response.token == null);
       t.end();
-
+      getTracerStub.restore();
       httpServer.server.close();
     });
 });
 
 test('tokenRoutes, POST /token with no credential, returns 401.', (t) => {
+  const getTracerStub = sinon.stub(tracer, 'getTracer').returns(getTracerMock());
   const routes = routesFactory.getRoutes(tokenServiceStub);
   const creds = {};
   const httpServer = gethttpServer(3007, routes);
@@ -82,7 +94,7 @@ test('tokenRoutes, POST /token with no credential, returns 401.', (t) => {
       t.error(err, 'error returned');
       t.ok(response.token == null, 'Token is null.');
       t.end();
-
+      getTracerStub.restore();
       httpServer.server.close();
     });
 });
