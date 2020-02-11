@@ -4,12 +4,12 @@ import test from 'tape';
 import express from '../expressServer';
 
 const routesFactory = {
-  getRoutes: stub => proxyquire('../routes/tokenRoutes', { '../services/tokenService': stub }),
+  getRoutes: (stub) => proxyquire('../routes/tokenRoutes', { '../services/tokenService': stub }),
 };
 
 const tokenServiceStub = {
   default: () => ({
-    generateToken: data => new Promise((resolve) => {
+    generateToken: (data) => new Promise((resolve) => {
       if (data.userName === 'matt') {
         resolve({ token: 'token_generated', refreshToken: 'refresh_token_generated' });
       } else {

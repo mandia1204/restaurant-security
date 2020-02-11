@@ -1,6 +1,7 @@
+import { Express } from 'express';
 import roleService from '../services/roleService';
 
-const roleRoutes = (app) => {
+const roleRoutes = (app: Express) => {
   const service = roleService();
 
   app.get('/role', (req, res) => {

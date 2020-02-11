@@ -1,4 +1,5 @@
 import promClient from 'prom-client';
+import { Express } from 'express';
 import mongooseUtil from '../db/mongooseUtil';
 import DebugNamespaces from '../util/debugNameSpaces';
 import Logger from '../util/logger';
@@ -10,7 +11,7 @@ const counter = new promClient.Counter({
   help: 'number of http requests',
   labelNames: ['method', 'handler'],
 });
-const commonHeaders = (app) => {
+const commonHeaders = (app: Express) => {
   const db = mongooseUtil();
   app.use((req, res, next) => {
     db.connect();

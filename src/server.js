@@ -7,10 +7,14 @@ import tokenRoutes from './routes/tokenRoutes';
 import roleRoutes from './routes/roleRoutes';
 import DebugNamespaces from './util/debugNameSpaces';
 import Logger from './util/logger';
+import { initTracer } from './tracing/tracer';
 
 const logger = Logger(DebugNamespaces.server);
 const app = express().getServer();
 const { register } = promClient;
+
+// jaeger
+initTracer('security-app');
 
 commonHeaders(app);
 userRoutes(app);
@@ -22,7 +26,8 @@ app.get('/metrics', (req, res) => {
   res.end(register.metrics());
 });
 
-logger.info('Starting security-app version 1.3');
+
+logger.info('Starting security-app version 1.4');
 
 const port = 3001;
 app.listen(port, (err) => {

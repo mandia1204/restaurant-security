@@ -1,8 +1,9 @@
+import { Express } from 'express';
 import client from '../client/loggingClient';
 import userService from '../services/userService';
 import Auth from '../auth/auth';
 
-const userRoutes = (app) => {
+const userRoutes = (app: Express) => {
   const service = userService();
 
   app.post('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
