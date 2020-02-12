@@ -8,6 +8,7 @@ import roleRoutes from './routes/roleRoutes';
 import DebugNamespaces from './util/debugNameSpaces';
 import Logger from './util/logger';
 import { initTracer } from './tracing/tracer';
+import tracingMiddleware from './tracing/tracing-middleware';
 
 const logger = Logger(DebugNamespaces.server);
 const app = express().getServer();
@@ -15,6 +16,8 @@ const { register } = promClient;
 
 // jaeger
 initTracer('security-app');
+
+app.use(tracingMiddleware());
 
 commonHeaders(app);
 userRoutes(app);

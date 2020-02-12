@@ -1,24 +1,23 @@
-import { FORMAT_HTTP_HEADERS, SpanOptions } from 'opentracing';
-import { Express } from 'express';
+import { Express, Request } from 'express';
+import { Span } from 'jaeger-client/node_modules/opentracing';
 import TokenService from '../services/tokenService';
 import Auth from '../auth/auth';
-import { getTracer } from '../tracing/tracer';
+
+interface RequestWithSpan extends Request {
+  span?: Span;
+}
 
 const tokenRoutes = (app: Express) => {
   const tokenService = TokenService();
-  const tracer = getTracer();
-  // generate token
-  app.post('/token', (req, res) => {
-    const spanOptions: SpanOptions = { };
-    const spanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers);
-    if (spanContext) {
-      spanOptions.childOf = spanContext;
+  app.post('/token', (req: RequestWithSpan, res) => {
+    const { span } = req;
+    if (span) {
+      span.setTag('someTag', 'some value');
+      span.log({ message: 'custom log' });
+      span.setBaggageItem('memberid', 'my test');
     }
-
-    const span = tracer.startSpan('create_token', spanOptions);
     tokenService.generateToken(req.body).then((data) => {
       if (data) {
-        span.finish();
         res.json(data);
       } else {
         res.sendStatus(401);
