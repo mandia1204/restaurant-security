@@ -1,7 +1,6 @@
-import { FORMAT_HTTP_HEADERS, SpanOptions, Tags, Span } from 'opentracing';
+import { FORMAT_HTTP_HEADERS, SpanOptions, Tags, Span, globalTracer } from 'opentracing';
 import { Request, Response, NextFunction } from 'express';
 import url from 'url';
-import { getTracer } from './tracer';
 
 const finishSpan = (res: Response, span: Span) => () => {
   span.setTag(Tags.HTTP_STATUS_CODE, res.statusCode);
@@ -15,7 +14,7 @@ const finishSpan = (res: Response, span: Span) => () => {
 };
 
 const tracingMiddleware = (options = {}) => (req: Request, res: Response, next: NextFunction) => {
-  const tracer = getTracer();
+  const tracer = globalTracer();
   const spanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers);
   const spanOptions: SpanOptions = { };
   if (spanContext) {

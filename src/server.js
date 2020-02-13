@@ -1,5 +1,6 @@
 import promClient from 'prom-client';
 import './setup';
+import { initGlobalTracer } from 'opentracing';
 import express from './expressServer';
 import commonHeaders from './routes/commonHeaders';
 import userRoutes from './routes/userRoutes';
@@ -7,7 +8,7 @@ import tokenRoutes from './routes/tokenRoutes';
 import roleRoutes from './routes/roleRoutes';
 import DebugNamespaces from './util/debugNameSpaces';
 import Logger from './util/logger';
-import { initTracer } from './tracing/tracer';
+import initTracer from './tracing/tracer';
 import tracingMiddleware from './tracing/tracing-middleware';
 
 const logger = Logger(DebugNamespaces.server);
@@ -15,7 +16,7 @@ const app = express().getServer();
 const { register } = promClient;
 
 // jaeger
-initTracer('security-app');
+initGlobalTracer(initTracer('security-app'));
 
 app.use(tracingMiddleware());
 
