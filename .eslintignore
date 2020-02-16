@@ -6,3 +6,4 @@
 /src/db/scripts/**
 .eslintrc.js
 webpack.config.js
+src/grpc-services/*.js

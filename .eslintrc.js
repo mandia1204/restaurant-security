@@ -38,6 +38,7 @@ module.exports = {
         ],
 		'linebreak-style': ['error', 'unix'],
 		'max-len': ['error', { 'code': 125 }],
+		"no-useless-constructor": "off",
 		'@typescript-eslint/indent': ['error', 2],
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-member-accessibility': 'off',
@@ -45,6 +46,7 @@ module.exports = {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/ban-ts-ignore': 'off',
 		'@typescript-eslint/camelcase': 'off',
+		"@typescript-eslint/no-useless-constructor": "error",
 		'object-curly-newline': 'off',
 		'no-underscore-dangle': 'off',
 		'func-names': 'off',
@@ -55,10 +57,8 @@ module.exports = {
 	},
 	overrides:[
 		{
-			files: ['**/*.ts'],
-			rules: {
-			  'object-curly-newline': 'off',
-			},
+			files: ['src/grpc-services/*.d.ts'],
+			parser: '@typescript-eslint/parser',
 		},
 	]
 };

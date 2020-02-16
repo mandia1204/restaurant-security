@@ -2,6 +2,7 @@ import { Express } from 'express';
 import client from '../client/loggingClient';
 import userService from '../services/userService';
 import Auth from '../auth/auth';
+import { Log } from '../grpc-services/logging_pb';
 
 const userRoutes = (app: Express) => {
   const service = userService();
@@ -23,7 +24,10 @@ const userRoutes = (app: Express) => {
   });
 
   app.get('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
-    client.logInfo({ text: 'calling findUsers', severity: 1 }, () => ({}));
+    const log = new Log();
+    log.setText('calling findUsers');
+    log.setSeverity(1);
+    client.logInfo(log, () => ({}));
     service.findUsers({}, { userName: 'asc' }).then((users) => {
       res.json(users);
     }).catch((err) => {

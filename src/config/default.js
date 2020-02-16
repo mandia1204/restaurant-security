@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
     port: 27017,
     hostName: 'security-db',
   },
-  loggingUrl: 'localhost:5051',
+  loggingUrl: 'logging-app:5051',
   baseDir: path.join(__dirname, '..'),
   auth: {
     issuer: 'security.mattcompany.com',
