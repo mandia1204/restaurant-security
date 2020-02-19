@@ -55,6 +55,9 @@ module.exports = {
         // 'no-console':'off',
         // 'no-unused-vars':'off'
 	},
+	globals: {
+		"Record": "readonly"
+	},
 	overrides:[
 		{
 			files: ['src/grpc-services/*.d.ts'],

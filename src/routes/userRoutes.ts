@@ -1,8 +1,16 @@
-import { Express } from 'express';
+import { Express, Request } from 'express';
+import { Span } from 'opentracing';
+import grpc from 'grpc';
 import client from '../client/loggingClient';
 import userService from '../services/userService';
 import Auth from '../auth/auth';
 import { Log } from '../grpc-services/logging_pb';
+import { getForwardHeaders, addJaegerHeaders } from '../tracing/getForwardHeaders';
+
+interface RequestWithSpan extends Request {
+  span?: Span;
+  spanHeaders?: any;
+}
 
 const userRoutes = (app: Express) => {
   const service = userService();
@@ -23,11 +31,16 @@ const userRoutes = (app: Express) => {
     });
   });
 
-  app.get('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
+  app.get('/user', Auth().authenticate('validateOnlyToken'), (req: RequestWithSpan, res) => {
     const log = new Log();
+    const { span } = req;
+
     log.setText('calling findUsers');
     log.setSeverity(1);
-    client.logInfo(log, () => ({}));
+    const metadata = new grpc.Metadata();
+    const forwardHeaders = getForwardHeaders(span, req);
+    addJaegerHeaders(forwardHeaders, metadata);
+    client.logInfo(log, metadata, () => ({}));
     service.findUsers({}, { userName: 'asc' }).then((users) => {
       res.json(users);
     }).catch((err) => {

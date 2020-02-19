@@ -1,7 +1,6 @@
 import { initTracer as initJaegerTracer, TracingConfig, TracingOptions, JaegerTracer, ZipkinB3TextMapCodec } from 'jaeger-client';
 import { FORMAT_HTTP_HEADERS } from 'opentracing';
 
-let tracer:JaegerTracer;
 export default function initTracer(serviceName: string): JaegerTracer {
   const config: TracingConfig = {
     serviceName,
@@ -26,7 +25,7 @@ export default function initTracer(serviceName: string): JaegerTracer {
     },
   };
 
-  tracer = initJaegerTracer(config, options);
+  const tracer = initJaegerTracer(config, options);
   const codec = new ZipkinB3TextMapCodec({ urlEncoding: true });
   tracer.registerInjector(FORMAT_HTTP_HEADERS, codec);
   tracer.registerExtractor(FORMAT_HTTP_HEADERS, codec);
