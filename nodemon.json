@@ -1,5 +1,7 @@
 {
 	"env": {
 		"DEBUG": "app:*"
-	}
+	},
+	"watch": ["src/**/*.ts", "src/**/*.js", "src/**/*.json"],
+	"ext": "ts js json"
 }

@@ -10,7 +10,9 @@ module.exports = {
     hostName: 'security-db',
   },
   loggingUrl: 'logging-app:5051',
+  notificationUrl: 'notification-app:5052',
   baseDir: path.join(__dirname, '..'),
+  tracingEnabled: true,
   auth: {
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',

@@ -13,7 +13,7 @@ const finishSpan = (res: Response, span: Span) => () => {
   span.finish();
 };
 
-const tracingMiddleware = (options = {}) => (req: Request, res: Response, next: NextFunction) => {
+const tracingMiddleware = () => (req: Request, res: Response, next: NextFunction) => {
   const tracer = globalTracer();
   const spanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers);
   const spanOptions: SpanOptions = { };

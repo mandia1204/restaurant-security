@@ -7,7 +7,9 @@ module.exports = {
     hostName: 'security-db',
   },
   loggingUrl: 'logging-app:5051',
+  notificationUrl: 'notification-app:5052',
   baseDir: process.env.PWD,
+  tracingEnabled: true,
   auth: {
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',

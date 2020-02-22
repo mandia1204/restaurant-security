@@ -8,5 +8,4 @@ skaffold.yaml
 build
 report
 Dockerfile*
-nodemon.json
 notes.txt

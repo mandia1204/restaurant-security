@@ -1,6 +1,7 @@
 import promClient from 'prom-client';
 import './setup';
 import { initGlobalTracer } from 'opentracing';
+import config from 'config';
 import express from './expressServer';
 import commonHeaders from './routes/commonHeaders';
 import userRoutes from './routes/userRoutes';
@@ -16,9 +17,10 @@ const app = express().getServer();
 const { register } = promClient;
 
 // jaeger
-initGlobalTracer(initTracer('security-app'));
-
-app.use(tracingMiddleware());
+if (config.get('tracingEnabled')) {
+  initGlobalTracer(initTracer('security-app'));
+  app.use(tracingMiddleware());
+}
 
 commonHeaders(app);
 userRoutes(app);
@@ -31,7 +33,7 @@ app.get('/metrics', (req, res) => {
 });
 
 
-logger.info('Starting security-app version 1.4');
+logger.info('Starting security-app version 1.6');
 
 const port = 3001;
 app.listen(port, (err) => {

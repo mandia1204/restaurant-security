@@ -5,6 +5,32 @@ build:
     - image: security-app
       docker:
         dockerfile: Dockerfile-dev
+      sync:
+        manual:
+        - src: 'src/config/**/*'
+          dest: .
+        - src: 'src/dataAccess/**/*'
+          dest: .
+        - src: 'src/db/**/*'
+          dest: .
+        - src: 'src/client/**/*'
+          dest: .
+        - src: 'src/grpc-services/**/*'
+          dest: .
+        - src: 'src/routes/**/*'
+          dest: .
+        - src: 'src/models/**/*'
+          dest: .
+        - src: 'src/protos/**/*'
+          dest: .
+        - src: 'src/services/**/*'
+          dest: .
+        - src: 'src/util/**/*'
+          dest: .
+        - src: 'src/tracing/**/*'
+          dest: .
+        - src: 'src/*'
+          dest: .
     - image: security-app-db
       docker:
         dockerfile: Dockerfile-db
