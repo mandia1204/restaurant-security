@@ -9,8 +9,8 @@ module.exports = {
     port: 27017,
     hostName: 'security-db',
   },
-  loggingUrl: 'logging-app:5051',
-  notificationUrl: 'notification-app:5052',
+  loggingUrl: 'logging:5051',
+  notificationUrl: 'notification:5052',
   baseDir: path.join(__dirname, '..'),
   tracingEnabled: true,
   auth: {

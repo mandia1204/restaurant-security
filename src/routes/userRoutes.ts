@@ -8,11 +8,15 @@ import Auth from '../auth/auth';
 import { Log } from '../grpc-services/logging_pb';
 import { getForwardHeaders, addJaegerHeaders } from '../tracing/getForwardHeaders';
 import notificationClient from '../client/notificationServiceClient';
+import DebugNamespaces from '../util/debugNameSpaces';
+import Logger from '../util/logger';
 
 interface RequestWithSpan extends Request {
   span?: Span;
   spanHeaders?: any;
 }
+
+const logger = Logger(DebugNamespaces.userRoutes);
 
 const sendCreateNotification = (userName: string) => {
   const req = new NotificationRequest();
@@ -22,9 +26,12 @@ const sendCreateNotification = (userName: string) => {
   p.setParameterValue(userName);
 
   req.addParameters(p);
-  notificationClient.sendNotification(req, (err) => {
+  notificationClient.sendNotification(req, (err, res) => {
     if (err) {
       throw new Error(err.message);
+    }
+    if (res) {
+      logger.info(['response from notification:', res.getResult()]);
     }
   });
 };
@@ -58,7 +65,9 @@ const userRoutes = (app: Express) => {
     const metadata = new grpc.Metadata();
     const forwardHeaders = getForwardHeaders(span, req);
     addJaegerHeaders(forwardHeaders, metadata);
-    client.logInfo(log, metadata, () => ({}));
+    client.logInfo(log, metadata, (err) => {
+      console.log('ERR', err);
+    });
     service.findUsers({}, { userName: 'asc' }).then((users) => {
       res.json(users);
     }).catch((err) => {

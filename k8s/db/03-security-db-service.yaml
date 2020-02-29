@@ -7,7 +7,8 @@ metadata:
     app: security-db
 spec:
   ports:
-  - port: 27017
+  - name: tcp-security-db
+    port: 27017
   selector:
     app: security-db
   clusterIP: None
