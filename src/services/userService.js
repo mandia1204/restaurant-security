@@ -1,7 +1,7 @@
-import UserDao from '../dataAccess/userDao';
+import repo from '../dataAccess/userRepository';
 
 const userSevice = () => {
-  const userDao = UserDao();
+  const userRepository = repo();
 
   const toModel = (user) => ({
     id: user._id,
@@ -11,14 +11,19 @@ const userSevice = () => {
     roles: user.roles || [],
   });
 
-  const findUsers = (params, sort) => userDao.findUsers(params, sort)
+  const findUsers = (params, sort) => userRepository.findUsers(params, sort)
     .then((users) => users.map(toModel));
 
-  const findUser = (params) => userDao.findUser(params);
+  const findUser = (params) => userRepository.findUser(params);
 
-  const saveUser = (user) => userDao.saveUser(user).then((u) => toModel(u));
+  const saveUser = (user) => userRepository.findUser({ userName: user.userName }).then((existingUser) => {
+    if (existingUser) {
+      throw new Error('User already exists');
+    }
+    return userRepository.saveUser(user).then((u) => toModel(u));
+  });
 
-  const updateUser = (user) => userDao.updateUser(user).then((u) => toModel(u));
+  const updateUser = (user) => userRepository.updateUser(user).then((u) => toModel(u));
 
   return {
     findUsers,

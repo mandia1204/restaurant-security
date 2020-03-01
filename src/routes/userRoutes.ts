@@ -1,19 +1,18 @@
 import { Express, Request } from 'express';
-import { Span } from 'opentracing';
+import { Span, Tags } from 'opentracing';
 import grpc from 'grpc';
 import { NotificationRequest, Parameter } from '../grpc-services/notification_pb';
 import client from '../client/loggingClient';
 import userService from '../services/userService';
 import Auth from '../auth/auth';
 import { Log } from '../grpc-services/logging_pb';
-import { getForwardHeaders, addJaegerHeaders } from '../tracing/getForwardHeaders';
+import { getForwardHeaders, addJaegerHeadersToMetadata } from '../tracing/getForwardHeaders';
 import notificationClient from '../client/notificationServiceClient';
 import DebugNamespaces from '../util/debugNameSpaces';
 import Logger from '../util/logger';
 
 interface RequestWithSpan extends Request {
   span?: Span;
-  spanHeaders?: any;
 }
 
 const logger = Logger(DebugNamespaces.userRoutes);
@@ -39,12 +38,16 @@ const sendCreateNotification = (userName: string) => {
 const userRoutes = (app: Express) => {
   const service = userService();
 
-  app.post('/user', Auth().authenticate('validateOnlyToken'), (req, res) => {
+  app.post('/user', Auth().authenticate('validateOnlyToken'), (req: RequestWithSpan, res) => {
     service.saveUser(req.body).then((user) => {
       sendCreateNotification(user.userName);
       res.json(user);
     }).catch((err) => {
-      res.json({ info: 'error during save user', error: err });
+      const errResponse = { info: 'error during save user', error: err.message };
+      const { span } = req;
+      span?.setTag(Tags.ERROR, true);
+      span?.setTag('errorMessage', errResponse);
+      res.status(400).json(errResponse);
     });
   });
 
@@ -64,9 +67,11 @@ const userRoutes = (app: Express) => {
     log.setSeverity(1);
     const metadata = new grpc.Metadata();
     const forwardHeaders = getForwardHeaders(span, req);
-    addJaegerHeaders(forwardHeaders, metadata);
+    addJaegerHeadersToMetadata(forwardHeaders, metadata);
     client.logInfo(log, metadata, (err) => {
-      console.log('ERR', err);
+      if (err) {
+        logger.error(['error calling logging:', err.message, err.details]);
+      }
     });
     service.findUsers({}, { userName: 'asc' }).then((users) => {
       res.json(users);

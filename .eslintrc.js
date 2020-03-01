@@ -51,7 +51,9 @@ module.exports = {
 		'no-underscore-dangle': 'off',
 		'func-names': 'off',
 		'max-len': ['error', { code: 160 }],
-		"import/extensions": ["error", "never", { "svg": "always" }]
+		"import/extensions": ["error", "never", { "svg": "always" }],
+		"no-unused-expressions": "off",
+		"@typescript-eslint/no-unused-expressions": "error",
         // 'no-console':'off',
         // 'no-unused-vars':'off'
 	},

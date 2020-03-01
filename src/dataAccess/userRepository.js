@@ -1,6 +1,6 @@
 import User from '../models/userModel';
 
-const userDao = () => {
+const userRepository = () => {
   const findUsers = (params, sort) => {
     let query = User.find(params);
     if (sort) {
@@ -27,4 +27,4 @@ const userDao = () => {
   };
 };
 
-export default userDao;
+export default userRepository;

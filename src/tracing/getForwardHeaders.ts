@@ -4,7 +4,7 @@ import { Request } from 'express';
 
 const INCOMING_HEADERS = ['x-request-id', 'x-b3-flags', 'x-ot-span-context'];
 
-export const addJaegerHeaders = (headers: Record<string, string>, meta: grpc.Metadata) => {
+export const addJaegerHeadersToMetadata = (headers: Record<string, string>, meta: grpc.Metadata) => {
   Object.keys(headers).forEach((k) => {
     meta.add(k, headers[k]);
   });
