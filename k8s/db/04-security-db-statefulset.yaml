@@ -1,8 +1,11 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: security-db
+  name: security-db-v1
   namespace: default
+  labels:
+    app: security-db
+    version: v1
 spec:
   serviceName: "security-db"
   replicas: 1
@@ -13,6 +16,7 @@ spec:
     metadata:
       labels:
         app: security-db
+        version: v1
       # annotations:
       #   sidecar.istio.io/inject: "false"
     spec:

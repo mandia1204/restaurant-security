@@ -1,7 +1,9 @@
-# apiVersion: getambassador.io/v1
-# kind: Mapping
-# metadata:
-#   name: security-app
-# spec:
-#   prefix: /securityApi/
-#   service: security-app:3001
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: security-app
+spec:
+  prefix: /securityApi/
+  # service: https://security-app:3001
+  service: security-app:3001
+  # tls: istio-upstream

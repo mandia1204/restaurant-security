@@ -1,11 +1,20 @@
 import mongoose from 'mongoose';
+import bluebird from 'bluebird';
 import getConnectionString from './connectionString';
-import mongooseOptions from './mongooseOptions';
 import connectionEvents from './connectionEvents';
 import DebugNamespaces from '../util/debugNameSpaces';
 import Logger from '../util/logger';
 
 const logger = Logger(DebugNamespaces.mongo);
+
+const options = {
+  promiseLibrary: bluebird,
+  autoReconnect: true,
+  reconnectTries: 3,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  family: 4,
+};
 
 const mongooseUtil = () => {
   const connect = () => {
@@ -13,7 +22,7 @@ const mongooseUtil = () => {
       logger.info('Not connected to db, trying to connect...');
       const connString = getConnectionString();
       connectionEvents(mongoose);
-      mongoose.connect(connString, mongooseOptions);
+      mongoose.connect(connString, options);
     }
   };
 
