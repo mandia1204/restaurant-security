@@ -4,6 +4,6 @@ metadata:
   name: security-app
 spec:
   prefix: /securityApi/
-  # service: https://security-app:3001
-  service: security-app:3001
-  # tls: istio-upstream
+  service: https://security-app:3001
+  # service: security-app:3001
+  tls: istio-upstream
