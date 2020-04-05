@@ -9,8 +9,6 @@ const logger = Logger(DebugNamespaces.mongo);
 
 const options = {
   promiseLibrary: bluebird,
-  autoReconnect: true,
-  reconnectTries: 3,
   useNewUrlParser: true,
   useUnifiedTopology: true,
   family: 4,
