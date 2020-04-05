@@ -4,7 +4,7 @@
     },
     "eslint.enable": true,
 	"eslint.lintTask.enable": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 4,
     "files.associations": {
         "Dockerfile*": "dockerfile",
         "Jenkinsfile*": "groovy"
@@ -15,5 +15,7 @@
 	"eslint.validate": [
 		"javascript",
         "typescript"
-	]
+	],
+	"editor.insertSpaces": true,
+	"editor.detectIndentation": false
 }
