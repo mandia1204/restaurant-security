@@ -13,6 +13,12 @@ module.exports = {
   notificationUrl: 'notification:5052',
   baseDir: path.join(__dirname, '..'),
   tracingEnabled: true,
+  notificationEnabled: true,
+  cacheEnabled: true,
+  redis: {
+    host: 'security-app-cache',
+    port: 6379,
+  },
   auth: {
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',

@@ -1,13 +1,13 @@
 import UserService from './userService';
 import DebugNamespaces from '../util/debugNameSpaces';
-import TokenDao from '../dataAccess/tokenDao';
+import TokenRepository from '../dataAccess/tokenRepository';
 import TokenEncoder from './tokenEncoder';
 import Logger from '../util/logger';
 
 const logger = Logger(DebugNamespaces.token);
 const tokenService = () => {
   const userService = UserService();
-  const tokenDao = TokenDao();
+  const repo = TokenRepository();
   const tokenEncoder = TokenEncoder();
 
   const generateToken = (requestData) => {
@@ -22,7 +22,7 @@ const tokenService = () => {
       }
       const token = tokenEncoder.encode(user.userName, 'accessToken');
       const refreshToken = tokenEncoder.encode(user.userName, 'refreshToken');
-      tokenDao.saveToken({ userName: user.userName, refreshToken });
+      repo.saveToken({ userName: user.userName, refreshToken });
       return {
         token,
         refreshToken,
@@ -38,7 +38,7 @@ const tokenService = () => {
       logger.info('null userName or refreshToken');
       return Promise.resolve(null);
     }
-    const findTokenPromise = tokenDao.findToken({ refreshToken, userName });
+    const findTokenPromise = repo.findToken({ refreshToken, userName });
     return findTokenPromise.then((token) => {
       if (!token) {
         return null;

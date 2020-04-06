@@ -1,6 +1,7 @@
 import { Express, Request } from 'express';
 import { Span, Tags } from 'opentracing';
 import grpc from 'grpc';
+import config from 'config';
 import { NotificationRequest, Parameter } from '../grpc-services/notification_pb';
 import client from '../client/loggingClient';
 import userService from '../services/userService';
@@ -14,7 +15,7 @@ import Logger from '../util/logger';
 interface RequestWithSpan extends Request {
   span?: Span;
 }
-
+const notificationEnabled = config.get('notificationEnabled');
 const logger = Logger(DebugNamespaces.userRoutes);
 
 const sendCreateNotification = (userName: string) => {
@@ -40,7 +41,9 @@ const userRoutes = (app: Express) => {
 
   app.post('/user', Auth().authenticate('validateOnlyToken'), (req: RequestWithSpan, res) => {
     service.saveUser(req.body).then((user) => {
-      sendCreateNotification(user.userName);
+      if (notificationEnabled) {
+        sendCreateNotification(user.userName);
+      }
       res.json(user);
     }).catch((err) => {
       const errResponse = { info: 'error during save user', error: err.message };
@@ -77,6 +80,12 @@ const userRoutes = (app: Express) => {
       res.json(users);
     }).catch((err) => {
       res.json({ info: 'error during find users', error: err });
+    });
+  });
+
+  app.post('/clear', Auth().authenticate('validateOnlyToken'), (_, res) => {
+    service.clearCache().then(() => {
+      res.json({ message: 'cache clear' });
     });
   });
 };

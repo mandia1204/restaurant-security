@@ -15,3 +15,21 @@ spec:
     imagePullPolicy: IfNotPresent
     name: curl
   restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    app: redis
+  annotations:
+    sidecar.istio.io/inject: "false"
+spec:
+  containers:
+  - image: gcr.io/google_containers/redis:v1
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: redis
+  restartPolicy: Always

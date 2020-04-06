@@ -1,6 +1,6 @@
 import Role from '../models/roleModel';
 
-const roleDao = () => {
+const roleRepository = () => {
   const getRoles = () => Role.find().exec();
 
   return {
@@ -8,4 +8,4 @@ const roleDao = () => {
   };
 };
 
-export default roleDao;
+export default roleRepository;

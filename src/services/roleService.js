@@ -1,14 +1,14 @@
-import RoleDao from '../dataAccess/roleDao';
+import RoleRepository from '../dataAccess/roleRepository';
 
 const roleService = () => {
-  const roleDao = RoleDao();
+  const repo = RoleRepository();
 
   const toModel = (role) => ({
     id: role._id,
     roleName: role.roleName || '',
   });
 
-  const getRoles = () => roleDao.getRoles()
+  const getRoles = () => repo.getRoles()
     .then((roles) => roles.map(toModel));
 
   return {

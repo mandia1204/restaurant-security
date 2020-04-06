@@ -10,6 +10,12 @@ module.exports = {
   notificationUrl: 'notification:5052',
   baseDir: process.env.PWD,
   tracingEnabled: true,
+  notificationEnabled: true,
+  cacheEnabled: true,
+  redis: {
+    host: 'security-app-cache',
+    port: 6379,
+  },
   auth: {
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',

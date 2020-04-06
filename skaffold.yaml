@@ -43,3 +43,4 @@ deploy:
       - k8s/db/*.yaml
       - k8s/*.yaml
       - k8s/istio/*.yaml
+      - k8s/cache/*.yaml

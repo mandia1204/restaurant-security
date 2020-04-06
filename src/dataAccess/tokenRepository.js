@@ -1,6 +1,6 @@
 import Token from '../models/tokenModel';
 
-const tokenDao = () => {
+const tokenRepository = () => {
   const findToken = (params) => Token.findOne(params).exec();
 
   const saveToken = (token) => {
@@ -14,4 +14,4 @@ const tokenDao = () => {
   };
 };
 
-export default tokenDao;
+export default tokenRepository;

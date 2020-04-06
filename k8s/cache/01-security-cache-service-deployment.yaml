@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: security-app-cache
+  namespace: default
+  labels:
+    app: security-cache
+    service: security-app-cache
+spec:
+  type: ClusterIP
+  selector:
+    app: security-cache
+  ports:
+  - name: tcp
+    protocol: TCP
+    port: 6379
+    targetPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: security-app-cache-v1
+  labels:
+    app: security-cache
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: security-cache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: security-cache
+        version: v1
+      # annotations:
+      #   sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - name: res-security-cache
+        image: redis:5.0.8-alpine
+        ports:
+        - containerPort: 6379
