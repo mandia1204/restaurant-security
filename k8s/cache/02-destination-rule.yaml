@@ -1,0 +1,10 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: security-app-cache
+spec:
+  host: security-app-cache
+  subsets:
+  - name: v1
+    labels:
+      version: v1
