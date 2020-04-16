@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import config from 'config';
 import { User } from '../../types/user';
 import redisClient from '../../client/redisClient';

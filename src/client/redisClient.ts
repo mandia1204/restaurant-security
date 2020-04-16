@@ -25,6 +25,6 @@ client.on('error', (error) => {
   logger.error(['Redis error', error]);
 });
 
-const asyncMethods = { getAsync, setAsync, lrangeAsync, hgetallAsync, rpushAsync, hmsetAsync, delAsync, saddAsync, smembersAsync, setAsync };
+const asyncMethods = { getAsync, setAsync, lrangeAsync, hgetallAsync, rpushAsync, hmsetAsync, delAsync, saddAsync, smembersAsync };
 
 export default Object.assign(client, asyncMethods);
