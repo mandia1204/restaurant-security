@@ -9,9 +9,9 @@ module.exports = {
   loggingUrl: 'logging:5051',
   notificationUrl: 'notification:5052',
   baseDir: process.env.PWD,
-  tracingEnabled: true,
-  notificationEnabled: true,
-  cacheEnabled: true,
+  tracingEnabled: false,
+  notificationEnabled: false,
+  cacheEnabled: false,
   redis: {
     host: 'security-app-cache',
     port: 6379,
