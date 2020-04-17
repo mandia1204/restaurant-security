@@ -14,6 +14,10 @@ COPY ./dist/config/production.js ./config/production.js
 
 COPY ./dist/protos ./protos
 
+COPY ./dist/cert ./cert
+
+COPY ./dist/swagger.yaml ./swagger.yaml
+
 ENV DEBUG=app:* NODE_ENV=production
 
 EXPOSE 3001

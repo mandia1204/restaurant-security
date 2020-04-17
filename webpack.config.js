@@ -34,6 +34,8 @@ module.exports = {
       'package.json',
       { from: 'src/config', to: 'config' },
       { from: 'src/protos', to: 'protos' },
+      { from: 'src/cert', to: 'cert' },
+      'src/swagger.yaml'
     ]),
   ],
   output: {
