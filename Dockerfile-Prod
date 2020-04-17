@@ -7,16 +7,16 @@ COPY ./dist/package*.json ./
 
 RUN npm install --production
 
-COPY ./dist/securityApp.js .
+COPY ./dist/cert ./cert
 
 # this will be overrided by kubernetes configmap
 COPY ./dist/config/production.js ./config/production.js
 
 COPY ./dist/protos ./protos
 
-COPY ./dist/cert ./cert
-
 COPY ./dist/swagger.yaml ./swagger.yaml
+
+COPY ./dist/securityApp.js .
 
 ENV DEBUG=app:* NODE_ENV=production
 
