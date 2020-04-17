@@ -4,27 +4,57 @@ import redis from 'redis';
 import Logger from '../util/logger';
 import DebugNamespaces from '../util/debugNameSpaces';
 
+interface RedisClient {
+    getAsync: (key: string) => Promise<string>;
+    lrangeAsync: (key: string, start: number, stop: number) => Promise<string[]>;
+    setAsync: (key: string, value: string) => Promise<any>;
+    hgetallAsync: (key: string) => Promise<{[key:string] : string}>;
+    rpushAsync: (key: string, value: string) => Promise<number>;
+    hmsetAsync: (key: string, value: {[key:string] : string}) => Promise<"OK">;
+    delAsync: (key: string) => Promise<number>;
+    saddAsync: (key: string, values: string[]) => Promise<number>;
+    smembersAsync: (key: string) => Promise<string[]>;
+}
+
 const logger = Logger(DebugNamespaces.server);
+const cacheEnabled = config.get('cacheEnabled');
 
-const { host, port } = config.get('redis');
-const redisOptions = { host, port };
+const createClient = (): RedisClient => {
+  if (!cacheEnabled) {
+    // return fake object
+    return {
+      getAsync: () => Promise.resolve(''),
+      lrangeAsync: () => Promise.resolve([]),
+      setAsync: () => Promise.resolve(''),
+      hgetallAsync: () => Promise.resolve({}),
+      rpushAsync: () => Promise.resolve(0),
+      hmsetAsync: () => Promise.resolve('OK'),
+      delAsync: () => Promise.resolve(0),
+      saddAsync: () => Promise.resolve(0),
+      smembersAsync: () => Promise.resolve([]),
+    };
+  }
+  const { host, port } = config.get('redis');
+  const redisOptions = { host, port };
 
-const client = redis.createClient(redisOptions);
+  const client = redis.createClient(redisOptions);
+  client.on('error', (error) => {
+    logger.error(['Redis error', error]);
+  });
 
-const lrangeAsync = promisify(client.lrange).bind(client);
-const hgetallAsync = promisify(client.hgetall).bind(client);
-const rpushAsync = promisify(client.rpush).bind(client);
-const hmsetAsync = promisify(client.hmset).bind(client);
-const delAsync = promisify(client.del).bind(client);
-const saddAsync = promisify(client.sadd).bind(client);
-const smembersAsync = promisify(client.smembers).bind(client);
-const setAsync = promisify(client.set).bind(client);
-const getAsync = promisify(client.get).bind(client);
+  return {
+    getAsync: promisify(client.get).bind(client),
+    lrangeAsync: promisify(client.lrange).bind(client),
+    setAsync: promisify(client.set).bind(client),
+    hgetallAsync: promisify(client.hgetall).bind(client),
+    rpushAsync: promisify(client.rpush).bind(client),
+    // @ts-ignores
+    hmsetAsync: promisify(client.hmset).bind(client),
+    delAsync: promisify(client.del).bind(client),
+    saddAsync: promisify(client.sadd).bind(client),
+    smembersAsync: promisify(client.smembers).bind(client),
+  };
+};
 
-client.on('error', (error) => {
-  logger.error(['Redis error', error]);
-});
-
-const asyncMethods = { getAsync, setAsync, lrangeAsync, hgetallAsync, rpushAsync, hmsetAsync, delAsync, saddAsync, smembersAsync };
-
-export default Object.assign(client, asyncMethods);
+const client = createClient();
+export default client;

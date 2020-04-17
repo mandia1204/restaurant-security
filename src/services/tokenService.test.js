@@ -8,7 +8,7 @@ const test = _test(tape);
 
 const userServiceStub = {
   default: () => ({
-    findUser: data => new Promise((resolve) => {
+    findUser: (data) => new Promise((resolve) => {
       if (data.userName === 'matt') {
         resolve({ userName: 'matt' });
       } else {
@@ -19,7 +19,7 @@ const userServiceStub = {
 };
 
 const serviceFactory = {
-  getService: stub => proxyquire('../services/tokenService', { './userService': stub }),
+  getService: (stub) => proxyquire('../services/tokenService', { './userService': stub }),
 };
 
 test('tokenService.generateToken(), user found, returns token with all required values.', (t) => {
@@ -49,7 +49,6 @@ test('tokenService.generateToken(), user not found, returns null.', (t) => {
 test('tokenService.generateToken(), missing userName and password, returns null.', (t) => {
   const service = serviceFactory.getService(userServiceStub).default();
   const creds = { };
-
   return service.generateToken(creds).then((data) => {
     t.ok(data == null);
     t.end();

@@ -39,10 +39,8 @@ const getUsersFromCache = async () => getUsersFromCacheString();
 
 const saveUsersToCacheSet = (users: User[]) => {
   const ids = users.map((u) => `user:${u.id}`);
-  // @ts-ignores
   redisClient.saddAsync('users', ids);
   users.map((u) => ({ id: u.id.toString(), userName: u.userName, name: u.name })).forEach((u) => {
-    // @ts-ignores
     redisClient.hmsetAsync(`user:${u.id}`, u);
   });
   return users;
@@ -50,9 +48,7 @@ const saveUsersToCacheSet = (users: User[]) => {
 
 const saveUsersToCacheList = (users: User[]) => {
   users.map((u) => ({ id: u.id.toString(), userName: u.userName, name: u.name })).forEach((u) => {
-    // @ts-ignores
     redisClient.rpushAsync('users', `user:${u.id}`);
-    // @ts-ignores
     redisClient.hmsetAsync(`user:${u.id}`, u);
   });
   return users;
@@ -72,7 +68,6 @@ const saveUsersToCache = (users: User[]) => {
   return users;
 };
 
-// @ts-ignores
 const clearCache = () => redisClient.delAsync('users');
 
 export default {

@@ -9,6 +9,11 @@ const test = _test(tape);
 test('userService.saveUser(), calls save method and returns the promise.', (t) => {
   const user = { userName: '', password: '' };
 
+  const execStub = sinon.stub().resolves(null);
+  const findStub = sinon.stub(User, 'findOne').callsFake(() => ({
+    exec: execStub,
+  }));
+
   const saveStub = sinon.stub(User.prototype, 'save').resolves({ _id: 1234,
     userName: 'matt',
     name: 'marvin',
@@ -16,13 +21,13 @@ test('userService.saveUser(), calls save method and returns the promise.', (t) =
     roles: ['abc', 'cdv'] });
 
   return userSevice().saveUser(user).then((data) => {
+    findStub.restore();
     t.deepEqual(data, { id: 1234,
       userName: 'matt',
       name: 'marvin',
       isAdmin: true,
       roles: ['abc', 'cdv'] }, 'it should resolve the promise correctly.');
     t.ok(saveStub.calledOnce, 'mongoose save should be called once');
-
     saveStub.restore();
     t.end();
   });
@@ -92,7 +97,6 @@ test('userService.findUser(), passing params, calls findOne, exec and returns th
     t.deepEqual(data, [{ userName: 'my name' }], 'it should resolve the promise and return the user.');
     t.ok(findStub.calledOnceWith(params), 'mongoose find should be called once with params');
     t.ok(execStub.calledOnce, 'exec should be called once');
-
     findStub.restore();
     t.end();
   });

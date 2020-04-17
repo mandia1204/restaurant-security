@@ -37,6 +37,12 @@ const userSevice = () => {
     return userRepository.saveUser(user).then((u) => toModel(u));
   });
 
+  const clearCache = () => {
+    if (cacheEnabled) {
+      userCache.clearCache();
+    }
+  };
+
   const updateUser = (user: User) => userRepository.updateUser(user).then((u) => toModel(u));
 
   return {
@@ -44,7 +50,7 @@ const userSevice = () => {
     findUser,
     saveUser,
     updateUser,
-    clearCache: userCache.clearCache,
+    clearCache,
   };
 };
 
