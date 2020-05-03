@@ -11,6 +11,6 @@ insert_final_newline = true
 [*.{js,ts}]
 indent_style = space
 
-[*.yaml]
+[*.{yml,yaml}]
 indent_style = space
 indent_size = 2
