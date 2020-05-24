@@ -11,12 +11,12 @@ phases:
   post_build:
     commands:
       - npm test
-# reports:
-#   arn:aws:codebuild:us-east-2:341189667252:report-group/security-app-reports:
-#     files:
-#       - "**/*"
-#     base-directory: 'report/test'
-#     discard-paths: no
+reports:
+  arn:aws:codebuild:us-east-2:341189667252:report-group/security-app-reports:
+    files:
+      - "**/*"
+    base-directory: 'report/junit'
+    discard-paths: no
 artifacts:
   files:
     - '**/*'

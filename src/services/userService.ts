@@ -39,8 +39,9 @@ const userSevice = () => {
 
   const clearCache = () => {
     if (cacheEnabled) {
-      userCache.clearCache();
+      return userCache.clearCache();
     }
+    return Promise.resolve(0);
   };
 
   const updateUser = (user: User) => userRepository.updateUser(user).then((u) => toModel(u));

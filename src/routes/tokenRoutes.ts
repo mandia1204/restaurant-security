@@ -1,5 +1,5 @@
 import { Express, Request } from 'express';
-import { Span } from 'jaeger-client/node_modules/opentracing';
+import { Span } from 'opentracing';
 import TokenService from '../services/tokenService';
 import Auth from '../auth/auth';
 
