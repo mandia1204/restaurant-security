@@ -1,4 +1,5 @@
 #!/bin/bash
+source /home/ec2-user/.bash_profile
 export NODE_ENV=production
 export DEBUG=app:*
 export SECURITY_DB_USER=matt
