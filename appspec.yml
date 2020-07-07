@@ -10,6 +10,10 @@ files:
   - source: /protos
     destination: /home/ec2-user/app/protos
 permissions:
+  - object: /home/ec2-user
+    pattern: "app"
+    owner: ec2-user
+    group: ec2-user
   - object: /home/ec2-user/app
     pattern: "**"
     owner: ec2-user
