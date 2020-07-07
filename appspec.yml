@@ -9,6 +9,8 @@ files:
     destination: /home/ec2-user/app/config
   - source: /protos
     destination: /home/ec2-user/app/protos
+  - source: /cert
+    destination: /home/ec2-user/app/cert
 permissions:
   - object: /home/ec2-user
     pattern: "app"
