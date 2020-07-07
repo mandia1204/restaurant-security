@@ -35,7 +35,9 @@ module.exports = {
       { from: 'src/config', to: 'config' },
       { from: 'src/protos', to: 'protos' },
       { from: 'src/cert', to: 'cert' },
-      'src/swagger.yaml'
+      { from: 'scripts', to: 'scripts' },
+      'src/swagger.yaml',
+      'appspec.yml'
     ]),
   ],
   output: {

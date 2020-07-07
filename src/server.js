@@ -17,6 +17,8 @@ const logger = Logger(DebugNamespaces.server);
 const app = expressServer().getServer();
 const { register } = promClient;
 
+process.title = 'restaurant-security';
+
 // jaeger
 if (config.get('tracingEnabled')) {
   initGlobalTracer(initTracer('security-app'));

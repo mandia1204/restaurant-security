@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source: /package.json
+    destination: /home/ec2-user/app
+  - source: /securityApp.js
+    destination: /home/ec2-user/app
+  - source: /config
+    destination: /home/ec2-user/app/config
+  - source: /protos
+    destination: /home/ec2-user/app/protos
+hooks:
+  AfterInstall:
+    - location: scripts/install_packages.sh
+      timeout: 3500
+    - location: scripts/start_server.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 300
+      runas: root
+
