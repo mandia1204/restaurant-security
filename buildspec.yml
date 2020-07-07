@@ -20,5 +20,5 @@ reports:
 artifacts:
   files:
     - '**/*'
-  name: securityApp-$(date +%Y-%m-%d)
+  name: securityApp-$(date +%Y-%m-%d-%H%M%S)
   base-directory: dist
