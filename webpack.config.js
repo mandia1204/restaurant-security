@@ -37,7 +37,8 @@ module.exports = {
       { from: 'src/cert', to: 'cert' },
       { from: 'scripts', to: 'scripts' },
       'src/swagger.yaml',
-      'appspec.yml'
+      'appspec.yml',
+      'pm2.config.js'
     ]),
   ],
   output: {

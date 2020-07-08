@@ -1,2 +1,2 @@
 #!/bin/bash
-pkill --signal SIGINT restaurant-security
+sudo pm2 stop security-app
