@@ -17,6 +17,10 @@ const ExpressServer = () => {
       res.sendFile(path.join(__dirname, '/index.html'));
     });
 
+    app.get('/ping', (req, res) => {
+      res.send('service ok!');
+    });
+
     return app;
   };
   return {
