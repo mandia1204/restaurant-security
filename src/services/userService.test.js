@@ -7,8 +7,8 @@ import userSevice from './userService';
 const test = _test(tape);
 
 test('userService.saveUser(), calls save method and returns the promise.', (t) => {
+  t.plan(2);
   const user = { userName: '', password: '' };
-
   const execStub = sinon.stub().resolves(null);
   const findStub = sinon.stub(User, 'findOne').callsFake(() => ({
     exec: execStub,
@@ -34,8 +34,8 @@ test('userService.saveUser(), calls save method and returns the promise.', (t) =
 });
 
 test('userService.findUsers(), passing params without sort, calls find, exec and returns the users', (t) => {
+  t.plan(4);
   const params = { userName: '' };
-
   const execStub = sinon.stub().resolves([{ _id: 1234, userName: 'test', name: 'marvin', isAdmin: true, roles: ['abc'] }]);
   const sortSpy = sinon.spy();
   const findStub = sinon.stub(User, 'find').callsFake(() => ({
@@ -60,6 +60,7 @@ test('userService.findUsers(), passing params without sort, calls find, exec and
 });
 
 test('userService.findUsers(), passing params and sort, calls find,sort, exec and returns the users', (t) => {
+  t.plan(4);
   const params = { userName: '' };
   const sort = { userName: 'desc' };
 
@@ -86,6 +87,7 @@ test('userService.findUsers(), passing params and sort, calls find,sort, exec an
 });
 
 test('userService.findUser(), passing params, calls findOne, exec and returns the user', (t) => {
+  t.plan(3);
   const params = { userName: 'my name' };
 
   const execStub = sinon.stub().resolves([{ userName: 'my name' }]);
