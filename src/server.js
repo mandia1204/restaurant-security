@@ -35,7 +35,6 @@ app.get('/metrics', (req, res) => {
 });
 
 logger.info('Starting security-app version 1.7');
-
 const port = 3001;
 app.listen(port, (err) => {
   if (err) {

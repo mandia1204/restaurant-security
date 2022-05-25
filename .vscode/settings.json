@@ -3,19 +3,26 @@
         "node_modules/": true
     },
     "eslint.enable": true,
-	"eslint.lintTask.enable": true,
-    "editor.tabSize": 2,
-    "files.associations": {
-        "Dockerfile*": "dockerfile",
-        "Jenkinsfile*": "groovy"
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-	"eslint.validate": [
-		"javascript",
-        "typescript"
-	],
-	"editor.insertSpaces": true,
-	"editor.detectIndentation": false
+		"editor.minimap.enabled": false,
+		"eslint.lintTask.enable": true,
+		"editor.tabSize": 2,
+		"files.associations": {
+					"Dockerfile*": "dockerfile",
+					"Jenkinsfile*": "groovy"
+		},
+		"editor.codeActionsOnSave": {
+				"source.fixAll.eslint": true
+		},
+		"eslint.validate": [
+			"javascript",
+			"typescript"
+		],
+		"eslint.options": {
+			"extensions": [
+					".js",
+					".ts",
+			]
+		},
+		"editor.insertSpaces": true,
+		"editor.detectIndentation": false
 }

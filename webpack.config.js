@@ -44,7 +44,9 @@ module.exports = {
       ]
     }
     ),
-    new ESLintPlugin({})
+    new ESLintPlugin({
+      extensions: ['js', 'ts']
+    })
   ],
   output: {
     filename: '[name].js',

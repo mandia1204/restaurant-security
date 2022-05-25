@@ -17,7 +17,8 @@
     "migrate-status": "migrate-mongo status",
     "proto-ts": "bash proto-to-ts.sh",
     "check-types": "tsc",
-    "stop": "pkill --signal SIGINT restaurant-security"
+    "stop": "pkill --signal SIGINT restaurant-security",
+		"lint": "eslint src/**"
   },
   "author": "Marvin Andia",
   "license": "ISC",
