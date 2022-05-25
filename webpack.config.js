@@ -1,6 +1,7 @@
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   target: 'node',
@@ -24,22 +25,26 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           'babel-loader',
-          'eslint-loader',
         ],
       },
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([
-      'package.json',
-      { from: 'src/config', to: 'config' },
-      { from: 'src/protos', to: 'protos' },
-      { from: 'src/cert', to: 'cert' },
-      { from: 'scripts', to: 'scripts' },
-      'src/swagger.yaml',
-      'appspec.yml',
-      'pm2.config.js'
-    ]),
+    new CopyWebpackPlugin({
+      patterns:
+      [
+        'package.json',
+        { from: 'src/config', to: 'config' },
+        { from: 'src/protos', to: 'protos' },
+        { from: 'src/cert', to: 'cert' },
+        { from: 'scripts', to: 'scripts' },
+        'src/swagger.yaml',
+        'appspec.yml',
+        'pm2.config.js'
+      ]
+    }
+    ),
+    new ESLintPlugin({})
   ],
   output: {
     filename: '[name].js',
