@@ -6,7 +6,6 @@ module.exports = {
         node: true
     },
     extends: ['eslint:recommended', 'airbnb-base', 'plugin:@typescript-eslint/recommended'],
-    parser: 'babel-eslint',
     parserOptions: {
         ecmaFeatures: {
             experimentalObjectRestSpread: true,
