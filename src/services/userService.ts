@@ -34,7 +34,7 @@ const userSevice = () => {
     if (existingUser) {
       throw new Error('User already exists');
     }
-    return userRepository.saveUser(user).then((u) => toModel(u));
+    return userRepository.saveUser(user).then((u: User) => toModel(u));
   });
 
   const clearCache = () => {
