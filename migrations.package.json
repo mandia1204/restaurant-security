@@ -1,0 +1,20 @@
+{
+  "name": "security-api-migrations",
+  "version": "1.0.0",
+  "description": "Restaurant security api - migrations",
+  "scripts": {
+    "migrate": "migrate-mongo up",
+    "migrate-status": "migrate-mongo status"
+  },
+  "author": "Marvin Andia",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "migrate-mongo": "^9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mandia1204/restaurant-security.git"
+  }
+}

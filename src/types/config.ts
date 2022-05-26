@@ -6,6 +6,7 @@ interface Token {
 }
 
 export interface Auth {
+  useRsa: boolean,
   issuer: string,
   audience: string[],
   accessToken: Token,

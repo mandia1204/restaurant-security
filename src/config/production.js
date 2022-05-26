@@ -17,6 +17,7 @@ module.exports = {
     port: 6379,
   },
   auth: {
+    useRsa: true,
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',
     accessToken: {

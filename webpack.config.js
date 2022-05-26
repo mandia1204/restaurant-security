@@ -38,6 +38,7 @@ module.exports = {
         { from: 'src/protos', to: 'protos' },
         { from: 'src/cert', to: 'cert' },
         { from: 'scripts', to: 'scripts' },
+        { from: 'src/keys', to: 'keys' },
         'src/swagger.yaml',
         'appspec.yml',
         'pm2.config.js'
