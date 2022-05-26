@@ -4,7 +4,7 @@ import userCache from './cache/userCache';
 import { User } from '../types/user';
 
 const userSevice = () => {
-  const cacheEnabled = config.get('cacheEnabled');
+  const cacheEnabled = config.get<boolean>('cacheEnabled');
   const userRepository = repo();
 
   const toModel = (user: any): User => ({

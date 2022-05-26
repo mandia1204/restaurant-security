@@ -15,7 +15,7 @@ import Logger from '../util/logger';
 interface RequestWithSpan extends Request {
   span?: Span;
 }
-const notificationEnabled = config.get('notificationEnabled');
+const notificationEnabled = config.get<boolean>('notificationEnabled');
 const logger = Logger(DebugNamespaces.userRoutes);
 
 const sendCreateNotification = (userName: string) => {
@@ -38,6 +38,47 @@ const sendCreateNotification = (userName: string) => {
 
 const userRoutes = (app: Express) => {
   const service = userService();
+
+  const userList = [
+    { cursor: 'AA', name: 'matt', id: 1 },
+    { cursor: 'AA', name: 'john', id: 2 },
+    { cursor: 'BB', name: 'peter', id: 3 },
+    { cursor: 'BB', name: 'gus', id: 4 },
+    { cursor: 'CC', name: 'liam', id: 5 },
+    { cursor: 'CC', name: 'gael', id: 6 },
+  ];
+
+  const nextCur = (cursor: string) => {
+    if (cursor === 'AA') {
+      return 'BB';
+    } if (cursor === 'BB') {
+      return 'CC';
+    }
+    return '';
+  };
+
+  app.post('/userPaginated', (req: RequestWithSpan, res) => {
+    const { body } = req;
+    const cursor = body.params.cursor ? body.params.cursor : 'AA';
+    const data = userList.filter((u) => u.cursor === cursor).map((u) => ({
+      cursor,
+      node: u,
+    }));
+    const result = {
+      data: {
+        issuers: {
+          edges: data,
+          pageInfo: {
+            hasNextPage: cursor !== 'CC',
+            endCursor: nextCur(cursor),
+          },
+          totalCount: userList.length,
+        },
+      }
+      ,
+    };
+    res.json(result);
+  });
 
   app.post('/user', Auth().authenticate('validateOnlyToken'), (req: RequestWithSpan, res) => {
     service.saveUser(req.body).then((user) => {

@@ -3,6 +3,7 @@ import config from 'config';
 import redis from 'redis';
 import Logger from '../util/logger';
 import DebugNamespaces from '../util/debugNameSpaces';
+import { RedisConfig } from '../types/config';
 
 interface RedisClient {
   getAsync: (key: string) => Promise<string>;
@@ -17,7 +18,7 @@ interface RedisClient {
 }
 
 const logger = Logger(DebugNamespaces.server);
-const cacheEnabled = config.get('cacheEnabled');
+const cacheEnabled = config.get<boolean>('cacheEnabled');
 
 function createClient(): RedisClient {
   if (!cacheEnabled) {
@@ -34,7 +35,7 @@ function createClient(): RedisClient {
       smembersAsync: () => Promise.resolve([]),
     };
   }
-  const { host, port } = config.get('redis');
+  const { host, port } = config.get<RedisConfig>('redis');
 
   const client = redis.createClient({ url: `redis://${host}:${port}` });
   client.on('error', (error) => {

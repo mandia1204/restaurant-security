@@ -3,7 +3,7 @@ import config from 'config';
 import { User } from '../../types/user';
 import redisClient from '../../client/redisClient';
 
-const cacheEnabled = config.get('cacheEnabled');
+const cacheEnabled = config.get<boolean>('cacheEnabled');
 
 const toModel = (user: any): User => ({
   id: user.id || user._id || '',
