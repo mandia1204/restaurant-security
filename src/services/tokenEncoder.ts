@@ -3,10 +3,24 @@ import moment from 'moment';
 import config from 'config';
 import fs from 'fs';
 import path from 'path';
+import base64url from 'base64url';
+import { KMSClient, SignCommand } from '@aws-sdk/client-kms';
 import { Auth } from '../types/config';
+import DebugNamespaces from '../util/debugNameSpaces';
+import Logger from '../util/logger';
+
+const logger = Logger(DebugNamespaces.token);
 
 const authConfig = config.get<Auth>('auth');
 type TokenType = 'accessToken' | 'refreshToken';
+
+function getKmsSignCommand(message: Uint8Array | undefined) {
+  return new SignCommand({
+    KeyId: authConfig.kmsId,
+    SigningAlgorithm: 'RSASSA_PKCS1_V1_5_SHA_256',
+    Message: message,
+  });
+}
 
 function getTokenPayload(userName: string, type: TokenType) {
   const { exp } = authConfig[type];
@@ -30,9 +44,43 @@ function sign(userName: string, type: TokenType) {
   return jwt.encode(payload, privateKey, 'RS256');
 }
 
-function encode(userName: string, type: TokenType) {
+const header = {
+  alg: 'RS256',
+  typ: 'JWT',
+};
+
+interface TokenComponents {
+  header: string,
+  payload: string,
+  signature?: string,
+}
+
+const client = new KMSClient({ region: 'us-east-2' });
+
+async function signWithKms(userName: string, type: TokenType) {
+  const payload = getTokenPayload(userName, type);
+  const tokenComponents: TokenComponents = {
+    header: base64url(JSON.stringify(header)),
+    payload: base64url(JSON.stringify(payload)),
+  };
+
+  const message = Buffer.from(`${tokenComponents.header}.${tokenComponents.payload}`);
+  const command = getKmsSignCommand(message);
+  const data = await client.send(command);
+  const encodedSignature = base64url.encode(Buffer.from(data.Signature as Uint8Array), 'base64');
+  tokenComponents.signature = encodedSignature
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+  return `${tokenComponents.header}.${tokenComponents.payload}.${tokenComponents.signature}`;
+}
+
+async function encode(userName: string, type: TokenType): Promise<string> {
+  logger.info(`encoding token, useRsa:${authConfig.useRsa}, useKms:${authConfig.useKms}, type: ${type}`);
   if (authConfig.useRsa) {
     return sign(userName, type);
+  } if (authConfig.useRsa && authConfig.useKms) {
+    return signWithKms(userName, type);
   }
   return encodeWithSecret(userName, type);
 }

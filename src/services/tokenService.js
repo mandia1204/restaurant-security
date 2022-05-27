@@ -10,18 +10,18 @@ const tokenService = () => {
   const repo = TokenRepository();
   const tokenEncoder = TokenEncoder();
 
-  const generateToken = (requestData) => {
+  const generateToken = async (requestData) => {
     if (!requestData.userName || !requestData.password) {
       logger.info('null userName or password');
       return Promise.resolve(null);
     }
     const findPromise = userService.findUser(requestData);
-    return findPromise.then((user) => {
+    return findPromise.then(async (user) => {
       if (!user) {
         return null;
       }
-      const token = tokenEncoder.encode(user.userName, 'accessToken');
-      const refreshToken = tokenEncoder.encode(user.userName, 'refreshToken');
+      const token = await tokenEncoder.encode(user.userName, 'accessToken');
+      const refreshToken = await tokenEncoder.encode(user.userName, 'refreshToken');
       repo.saveToken({ userName: user.userName, refreshToken });
       return {
         token,

@@ -18,7 +18,7 @@
     "proto-ts": "bash proto-to-ts.sh",
     "check-types": "tsc",
     "stop": "pkill --signal SIGINT restaurant-security",
-		"lint": "eslint src/**"
+    "lint": "eslint src/**"
   },
   "author": "Marvin Andia",
   "license": "ISC",
@@ -77,8 +77,10 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-kms": "^3.100.0",
     "@babel/polyfill": "^7.12.1",
     "@babel/runtime": "^7.18.3",
+    "base64url": "^3.0.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.20.0",
     "colors": "^1.4.0",

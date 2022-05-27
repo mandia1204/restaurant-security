@@ -21,6 +21,8 @@ module.exports = {
   },
   auth: {
     useRsa: true,
+    useKms: false,
+    kmsId: process.env.KMS_ID,
     issuer: 'security.mattcompany.com',
     audience: 'restaurant.mattcompany.com',
     accessToken: {

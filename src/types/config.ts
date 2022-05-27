@@ -7,6 +7,8 @@ interface Token {
 
 export interface Auth {
   useRsa: boolean,
+  useKms: boolean,
+  kmsId: string,
   issuer: string,
   audience: string[],
   accessToken: Token,
