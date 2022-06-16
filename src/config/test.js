@@ -20,7 +20,7 @@ module.exports = {
     port: 6379,
   },
   auth: {
-    useRsa: true,
+    useRsa: false,
     useKms: false,
     kmsId: process.env.KMS_ID,
     issuer: 'security.mattcompany.com',
