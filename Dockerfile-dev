@@ -1,4 +1,4 @@
-FROM node:16.15.1-buster-slim
+FROM node:16.15.1-buster-slim AS builder
 
 WORKDIR /var/www
 
@@ -7,9 +7,19 @@ COPY ./package*.json /var/www/
 
 RUN npm install
 
+FROM node:16.15.1-alpine AS final
+
+WORKDIR /var/www
+
+COPY --from=builder /var/www/node_modules /var/www/node_modules
+
+RUN npm rebuild
+
 COPY . .
+
+RUN ls -l
 
 ENV DEBUG=app:* NODE_ENV=development NODE_CONFIG_DIR=./src/config
 
 EXPOSE 3001
-CMD [ "npm", "start" ]
+CMD [ "npm", "start"]
