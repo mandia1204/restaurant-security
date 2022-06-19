@@ -15,7 +15,7 @@ RUN npm run build
 
 FROM node:16.15.1-alpine AS final
 WORKDIR /var/www
-COPY --from=base /var/www/package*.json .
+COPY --from=base /var/www/package*.json ./
 RUN npm install --production
 COPY --from=builder /var/www/dist .
 # these can be replaced by configmap/secret on deployment
