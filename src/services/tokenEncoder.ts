@@ -58,6 +58,7 @@ interface TokenComponents {
 const client = new KMSClient({ region: 'us-east-2' });
 
 async function signWithKms(userName: string, type: TokenType) {
+  logger.info('Signing with ksm...');
   const payload = getTokenPayload(userName, type);
   const tokenComponents: TokenComponents = {
     header: base64url(JSON.stringify(header)),
