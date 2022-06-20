@@ -8,6 +8,10 @@ spec:
     hostPath:
       path: /var/run/docker.sock
   containers:
+  - name: git
+    imagePullPolicy: IfNotPresent
+    image: alpine/git
+    command: ["sh", "-c", "sleep infinity"]
   - name: shell
     imagePullPolicy: IfNotPresent
     image: alpinelinux/docker-cli
