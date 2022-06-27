@@ -1,0 +1,10 @@
+FROM node:alpine3.15
+
+WORKDIR /var/www
+
+COPY ./migrations.package.json /var/www/package.json
+
+RUN npm install
+
+COPY ./migrate-mongo-config.js ./
+COPY ./migrations ./migrations
