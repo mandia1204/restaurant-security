@@ -14,7 +14,7 @@ const config = {
       useUnifiedTopology: true, // removes a deprecating warning when connecting
     },
   },
-
+  moduleSystem: 'commonjs',
   // The migrations dir, can be an relative or absolute path. Only edit this when really necessary.
   migrationsDir: 'migrations',
 
