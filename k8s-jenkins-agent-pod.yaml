@@ -12,6 +12,10 @@ spec:
     imagePullPolicy: IfNotPresent
     image: alpine/git
     command: ["sh", "-c", "sleep infinity"]
+  - name: yq
+    imagePullPolicy: IfNotPresent
+    image: mikefarah/yq
+    command: ["sh", "-c", "sleep infinity"]
   - name: shell
     imagePullPolicy: IfNotPresent
     image: alpinelinux/docker-cli
