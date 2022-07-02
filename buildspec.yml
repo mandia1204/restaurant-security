@@ -2,23 +2,25 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 10
+      nodejs: 16
     commands:
        - npm install
   build:
     commands:
-      - npm run build
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t testing:$CODEBUILD_BUILD_NUMBER .
   post_build:
     commands:
-      - npm test
-reports:
-  arn:aws:codebuild:us-east-2:341189667252:report-group/security-app-reports:
-    files:
-      - "**/*"
-    base-directory: 'report/junit'
-    discard-paths: no
-artifacts:
-  files:
-    - '**/*'
-  name: securityApp-$(date +%Y-%m-%d-%H%M%S)
-  base-directory: dist
+      - echo Build completed on `date`
+# reports:
+#   arn:aws:codebuild:us-east-2:341189667252:report-group/security-app-reports:
+#     files:
+#       - "**/*"
+#     base-directory: 'report/junit'
+#     discard-paths: no
+# artifacts:
+#   files:
+#     - '**/*'
+#   name: securityApp-$(date +%Y-%m-%d-%H%M%S)
+#   base-directory: dist
