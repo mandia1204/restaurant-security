@@ -29,9 +29,9 @@ tokenRoutes(app);
 roleRoutes(app);
 swaggerRoutes(app);
 
-app.get('/metrics', (req, res) => {
+app.get('/metrics', async (req, res) => {
   res.set('Content-Type', register.contentType);
-  res.end(register.metrics());
+  res.end(await register.metrics());
 });
 
 logger.info('Starting security-app version 2.0');
